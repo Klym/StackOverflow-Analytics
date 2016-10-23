@@ -1,20 +1,20 @@
 create table users (
 	id				int primary key,
 	user_type		varchar(14) not null,
-	display_name	varchar(35) not null,
+	display_name	varchar(45) not null,
 	age				smallint null check(age > 0),
 	reputation		int not null check(reputation >= 0),
 	is_employe		bit not null,
 	creation_date	date not null,
-	location		varchar(50) null,
+	location		varchar(55) null,
 	view_count		int not null check(view_count >= 0),
 	question_count	int not null check(question_count >= 0),
 	answer_count	int not null check(answer_count >= 0)
 )
 
 create table tags (
-	id				int primary key,
-	name			varchar(20) not null,
+	id				int identity primary key,
+	name			varchar(50) not null,
 	count			int not null check(count >= 0),
 	has_synonyms	bit not null
 )

@@ -17,30 +17,28 @@ class DataBase(object):
         self.cursor.close()
         self.cnxn.close()
     
-    def insertUsers(self, data):
+    def insert(self, data, func):
         count = 0
         for i in range(0, len(data)):
-            isEmployee = 1 if data[i]["is_employee"] else 0
-            age = data[i].get("age")
-            location = data[i].get("location")
-            creation_date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
-            date = creation_date.strftime("%y-%m-%d")
+            sql_stmt, fields = func(data, i)
             try:
-                self.cursor.execute("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", data[i]["user_id"], data[i]["user_type"], data[i]["display_name"], age, location, data[i]["reputation"], isEmployee, date, data[i]["view_count"], data[i]["question_count"], data[i]["answer_count"])
+                self.cursor.execute(sql_stmt, fields)
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
                 print i, err.args[1].decode("cp1251")
                 count += 1
         return len(data) - count
+    
+    @staticmethod
+    def users(data, i):
+        isEmployee = 1 if data[i]["is_employee"] else 0
+        age = data[i].get("age")
+        location = data[i].get("location")
+        creation_date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
+        date = creation_date.strftime("%y-%m-%d")
+        return ("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", (data[i]["user_id"], data[i]["user_type"], data[i]["display_name"], age, location, data[i]["reputation"], isEmployee, date, data[i]["view_count"], data[i]["question_count"], data[i]["answer_count"]))
         
-    def insertTags(self, data):
-        count = 0
-        for i in range(0, len(data)):
-            has_synonyms = 1 if data[i]["has_synonyms"] else 0
-            try:
-                self.cursor.execute("insert into [dbo].[tags] ([ame], [count], [has_synonyms]) values (?,?,?)", data[i]["name"], data[i]["count"], has_synonyms);
-                self.cursor.commit()
-            except pyodbc.DatabaseError as err:
-                print i, err.args[1].decode("cp1251")
-                count += 1
-        return len(data) - count
+    @staticmethod
+    def tags(data, i):
+        has_synonyms = 1 if data[i]["has_synonyms"] else 0
+        return ("insert into [dbo].[tags] ([name], [count], [has_synonyms]) values (?,?,?)", (data[i]["name"], data[i]["count"], has_synonyms))
