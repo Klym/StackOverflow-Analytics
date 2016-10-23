@@ -18,6 +18,7 @@ class DataBase(object):
         self.cnxn.close()
     
     def insertUsers(self, data):
+        count = 0
         for i in range(0, len(data)):
             isEmployee = 1 if data[i]["is_employee"] else 0
             age = data[i].get("age")
@@ -29,3 +30,17 @@ class DataBase(object):
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
                 print i, err.args[1].decode("cp1251")
+                count += 1
+        return len(data) - count
+        
+    def insertTags(self, data):
+        count = 0
+        for i in range(0, len(data)):
+            has_synonyms = 1 if data[i]["has_synonyms"] else 0
+            try:
+                self.cursor.execute("insert into [dbo].[tags] ([ame], [count], [has_synonyms]) values (?,?,?)", data[i]["name"], data[i]["count"], has_synonyms);
+                self.cursor.commit()
+            except pyodbc.DatabaseError as err:
+                print i, err.args[1].decode("cp1251")
+                count += 1
+        return len(data) - count
