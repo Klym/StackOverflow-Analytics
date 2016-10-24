@@ -34,8 +34,7 @@ class DataBase(object):
         isEmployee = 1 if data[i]["is_employee"] else 0
         age = data[i].get("age")
         location = data[i].get("location")
-        creation_date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
-        date = creation_date.strftime("%y-%m-%d")
+        date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
         return ("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", (data[i]["user_id"], data[i]["user_type"], data[i]["display_name"], age, location, data[i]["reputation"], isEmployee, date, data[i]["view_count"], data[i]["question_count"], data[i]["answer_count"]))
         
     @staticmethod
