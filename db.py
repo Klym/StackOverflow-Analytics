@@ -17,12 +17,22 @@ class DataBase(object):
         self.cursor.close()
         self.cnxn.close()
     
+    def select(self, func, proc_fn):
+        sql_select_stmt = func()
+        try:
+            self.cursor.execute(sql_select_stmt)
+            rows = self.cursor.fetchall()
+            return map(proc_fn, rows)
+        except pyodbc.DatabaseError as err:
+            print err.args[1].decode("cp1251")
+        return None
+    
     def insert(self, data, func):
         count = 0
         for i in range(0, len(data)):
-            sql_stmt, fields = func(data, i)
+            sql_insert_stmt, fields = func(data, i)
             try:
-                self.cursor.execute(sql_stmt, fields)
+                self.cursor.execute(sql_insert_stmt, fields)
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
                 print i, err.args[1].decode("cp1251")
@@ -36,6 +46,14 @@ class DataBase(object):
         location = data[i].get("location")
         date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
         return ("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", (data[i]["user_id"], data[i]["user_type"], data[i]["display_name"], age, location, data[i]["reputation"], isEmployee, date, data[i]["view_count"], data[i]["question_count"], data[i]["answer_count"]))
+    
+    @staticmethod
+    def users_get():
+        return "select [id] from [dbo].[users]"
+    
+    @staticmethod
+    def users_proc(row):
+        return row[0]
         
     @staticmethod
     def tags(data, i):

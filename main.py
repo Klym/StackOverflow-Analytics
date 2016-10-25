@@ -25,6 +25,7 @@ def main():
         count += tmpCnt
     '''
     
+    '''
     params = {'pagesize': 100, 'sort': 'popular'}
     count = 0    
     for i in range(1, 470):
@@ -34,7 +35,13 @@ def main():
             break
         tmpCnt = db.insert(tags, DataBase.tags)
         count += tmpCnt
-
+    '''
+    
+    count = 0
+    result = db.select(DataBase.users_get, DataBase.users_proc)
+    print result
+    #params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
+    
     print "Добавлено строк в базу: %s" % count
     print "Время обработки: {:.3f} sec".format(time.time() - start_time)
     
