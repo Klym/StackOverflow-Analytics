@@ -40,17 +40,18 @@ def main():
     count = 0
     u_ids = db.select(DataBase.users_get, lambda x: x[0])
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
-    #for i in range(1, len(u_ids) + 1):
-    i = 1
-    while True:
-        params['page'] = i
-        questions, no_more = stackapi.get('users/%s/questions' % u_ids[0], params)
-        tmpCnt = db.insert(questions, DataBase.questions)
-        count += tmpCnt
-        if no_more:
-            break        
-        i += 1
-        
+    
+    for i in range(0, len(u_ids)):
+        page = 1        
+        while True:
+            params['page'] = page
+            questions, no_more = stackapi.get('users/%s/questions' % u_ids[i], params)
+            tmpCnt = db.insert(questions, DataBase.questions)
+            count += tmpCnt
+            if no_more:
+                break
+            page += 1
+        print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
         
         
     print "Добавлено строк в базу: %s" % count
