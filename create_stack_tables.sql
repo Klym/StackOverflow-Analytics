@@ -51,11 +51,12 @@ create table answers (
 create table comments (
 	id				int primary key,
 	user_id			int not null foreign key references users(id),
-	reply_to_user	int null foreign key references users(id),
-	post_id			int not null,
+	answer_id		int null foreign key references answers(id),
+	question_id		int null foreign key references questions(id),
 	post_type		bit not null,
 	body			text not null,
 	score			int not null check(score >= 0),
 	edited			bit not null,
-	creation_date	date not null
+	creation_date	date not null,
+	check			(not (answer_id is null and question_id is null))
 )
