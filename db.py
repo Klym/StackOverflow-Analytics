@@ -17,10 +17,22 @@ class DataBase(object):
         self.cursor.close()
         self.cnxn.close()
     
-    def select(self, func, proc_fn):
+    def select(self, func, proc_fn, params = None):
         sql_select_stmt = func()
         try:
-            self.cursor.execute(sql_select_stmt)
+            self.cursor.execute(sql_select_stmt, params)
+            row = self.cursor.fetchone()
+            if not row:
+                raise Exception("No tag in database")
+            return proc_fn(row)
+        except pyodbc.DatabaseError as err:
+            print err.args[1].decode("cp1251")
+        return None
+    
+    def select_all(self, func, proc_fn):
+        sql_select_all_stmt = func()
+        try:
+            self.cursor.execute(sql_select_all_stmt)
             rows = self.cursor.fetchall()
             return map(proc_fn, rows)
         except pyodbc.DatabaseError as err:
@@ -56,6 +68,14 @@ class DataBase(object):
         has_synonyms = 1 if row["has_synonyms"] else 0
         return ("insert into [dbo].[tags] ([name], [count], [has_synonyms]) values (?,?,?)", (row["name"], row["count"], has_synonyms))
         
+    @staticmethod
+    def get_tag_id():
+        return "select [id] from [dbo].[tags] where name = ?"
+    
+    @staticmethod
+    def q_tags(row):
+        return ("insert into [dbo].[q_tags] ([question_id], [tag_id]) values (?,?)", (row["question_id"], row["tag_id"]))
+    
     @staticmethod
     def questions(row):
         user_id = row["owner"]["user_id"]
