@@ -23,18 +23,15 @@ class StackAPI(object):
         params['site'] = 'stackoverflow'
         params = urllib.urlencode(params)
         self.conn.request("GET", "/2.2/%s?%s" % (category, params), "", self.headers)
-        data, no_more = self.read_response()
-        return data, no_more
+        data, has_more = self.read_response()
+        return data, has_more
 
     def read_response(self):
         response = self.conn.getresponse()    
         if response.status == 200:
             dataJSON = zlib.decompress(response.read(), 16 + zlib.MAX_WBITS)            
             json_data = json.loads(dataJSON)            
-            parse_data = json_data["items"]
-            if not json_data["has_more"]:
-                return parse_data, True
-            return parse_data, False
+            return json_data["items"], json_data["has_more"]
         else:
             print response.status, response.reason
-        return None, True
+        return None, False

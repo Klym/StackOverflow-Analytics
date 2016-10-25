@@ -45,10 +45,10 @@ def main():
         page = 1        
         while True:
             params['page'] = page
-            questions, no_more = stackapi.get('users/%s/questions' % u_ids[i], params)
+            questions, has_more = stackapi.get('users/%s/questions' % u_ids[i], params)
             tmpCnt = db.insert(questions, DataBase.questions)
             count += tmpCnt
-            if no_more:
+            if not has_more:
                 break
             page += 1
         print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
