@@ -36,12 +36,23 @@ def main():
         tmpCnt = db.insert(tags, DataBase.tags)
         count += tmpCnt
     '''
-    
+   
     count = 0
-    result = db.select(DataBase.users_get, DataBase.users_proc)
-    print result
-    #params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
-    
+    u_ids = db.select(DataBase.users_get, lambda x: x[0])
+    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
+    #for i in range(1, len(u_ids) + 1):
+    i = 1
+    while True:
+        params['page'] = i
+        questions, no_more = stackapi.get('users/%s/questions' % u_ids[0], params)
+        tmpCnt = db.insert(questions, DataBase.questions)
+        count += tmpCnt
+        if no_more:
+            break        
+        i += 1
+        
+        
+        
     print "Добавлено строк в базу: %s" % count
     print "Время обработки: {:.3f} sec".format(time.time() - start_time)
     

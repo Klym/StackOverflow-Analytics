@@ -30,7 +30,7 @@ class DataBase(object):
     def insert(self, data, func):
         count = 0
         for i in range(0, len(data)):
-            sql_insert_stmt, fields = func(data, i)
+            sql_insert_stmt, fields = func(data[i])
             try:
                 self.cursor.execute(sql_insert_stmt, fields)
                 self.cursor.commit()
@@ -40,22 +40,25 @@ class DataBase(object):
         return len(data) - count
     
     @staticmethod
-    def users(data, i):
-        isEmployee = 1 if data[i]["is_employee"] else 0
-        age = data[i].get("age")
-        location = data[i].get("location")
-        date = datetime.datetime.fromtimestamp(int(data[i]["creation_date"]))
-        return ("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", (data[i]["user_id"], data[i]["user_type"], data[i]["display_name"], age, location, data[i]["reputation"], isEmployee, date, data[i]["view_count"], data[i]["question_count"], data[i]["answer_count"]))
+    def users(row):
+        is_employee = 1 if row["is_employee"] else 0
+        age = row.get("age")
+        location = row.get("location")
+        date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
+        return ("insert into [dbo].[users] ([id], [user_type], [display_name], [age], [location], [reputation], [is_employe], [creation_date], [view_count], [question_count], [answer_count]) values (?,?,?,?,?,?,?,?,?,?,?)", (row["user_id"], row["user_type"], row["display_name"], age, location, row["reputation"], is_employee, date, row["view_count"], row["question_count"], row["answer_count"]))
     
     @staticmethod
     def users_get():
         return "select [id] from [dbo].[users]"
     
     @staticmethod
-    def users_proc(row):
-        return row[0]
+    def tags(row):
+        has_synonyms = 1 if row["has_synonyms"] else 0
+        return ("insert into [dbo].[tags] ([name], [count], [has_synonyms]) values (?,?,?)", (row["name"], row["count"], has_synonyms))
         
     @staticmethod
-    def tags(data, i):
-        has_synonyms = 1 if data[i]["has_synonyms"] else 0
-        return ("insert into [dbo].[tags] ([name], [count], [has_synonyms]) values (?,?,?)", (data[i]["name"], data[i]["count"], has_synonyms))
+    def questions(row):
+        user_id = row["owner"]["user_id"]
+        is_answered = 1 if row["is_answered"] else 0
+        date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
+        return ("insert into [dbo].[questions] ([id], [user_id], [title], [body], [is_answered], [view_count], [answer_count], [score], [up_vote_count], [creation_date]) values (?,?,?,?,?,?,?,?,?,?)", (row["question_id"], user_id, row["title"], row["body"], is_answered, row["view_count"], row["answer_count"], row["score"], row["up_vote_count"], date))
