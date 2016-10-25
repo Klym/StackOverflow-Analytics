@@ -47,7 +47,7 @@ class DataBase(object):
                 self.cursor.execute(sql_insert_stmt, fields)
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
-                print i, err.args[1].decode("cp1251")
+                #print i, err.args[1].decode("cp1251")
                 count += 1
         return len(data) - count
     
@@ -82,3 +82,10 @@ class DataBase(object):
         is_answered = 1 if row["is_answered"] else 0
         date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
         return ("insert into [dbo].[questions] ([id], [user_id], [title], [body], [is_answered], [view_count], [answer_count], [score], [up_vote_count], [creation_date]) values (?,?,?,?,?,?,?,?,?,?)", (row["question_id"], user_id, row["title"], row["body"], is_answered, row["view_count"], row["answer_count"], row["score"], row["up_vote_count"], date))
+    
+    @staticmethod
+    def answers(row):
+        user_id = row["owner"]["user_id"]
+        is_accepted = 1 if row["is_accepted"] else 0
+        date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
+        return ("insert into [dbo].[answers] ([id], [user_id], [question_id], [is_accepted], [body], [score], [up_vote_count], creation_date) values (?,?,?,?,?,?,?,?)", (row["answer_id"], user_id, row["question_id"], is_accepted, row["body"], row["score"], row["up_vote_count"], date))

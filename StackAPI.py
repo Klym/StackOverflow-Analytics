@@ -33,8 +33,8 @@ class StackAPI(object):
             raise Exception(e.message)
         if response.status == 200:
             dataJSON = zlib.decompress(response.read(), 16 + zlib.MAX_WBITS)            
-            json_data = json.loads(dataJSON)            
-            return json_data["items"], json_data["has_more"]
+            json_data = json.loads(dataJSON)
         else:
             print response.status, response.reason
-        return None, False
+            raise Exception
+        return json_data["items"], json_data["has_more"]

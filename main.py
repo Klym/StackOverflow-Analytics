@@ -36,9 +36,10 @@ def main():
         tmpCnt = db.insert(tags, DataBase.tags)
         count += tmpCnt
     '''
-   
-    count = 0
+
     u_ids = db.select_all(DataBase.users_get, lambda x: x[0])
+    '''
+    count = 0
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
     
     tags = {}
@@ -74,7 +75,25 @@ def main():
                 break
             page += 1
         print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
-        
+    '''
+    count = 0
+    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!1zSsisBYpfc6Z)_I78GqP'}
+
+    for i in range(0, len(u_ids)):
+        page = 1        
+        while True:
+            params['page'] = page
+            try:
+                answers, has_more = stackapi.get('users/%s/answers' % u_ids[i], params)
+            except Exception:
+                break
+            tmpCnt = db.insert(answers, DataBase.answers)
+            count += tmpCnt
+            if not has_more:
+                break
+            page += 1
+        print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
+   
     print "Добавлено строк в базу: %s" % count
     print "Время обработки: {:.3f} sec".format(time.time() - start_time)
     
