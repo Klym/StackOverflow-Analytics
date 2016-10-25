@@ -47,7 +47,11 @@ def main():
         page = 1        
         while True:
             params['page'] = page
-            questions, has_more = stackapi.get('users/%s/questions' % u_ids[i], params)
+            try:
+                questions, has_more = stackapi.get('users/%s/questions' % u_ids[i], params)
+            except Exception as e:
+                print e.message
+                continue
             tmpCnt = db.insert(questions, DataBase.questions)
             count += tmpCnt
     
@@ -62,8 +66,7 @@ def main():
                         q_tags.append({"question_id": q["question_id"], "tag_id": tag_id})
                     except Exception as e:
                         print "Error while inserting tags. Question id: %s, tag name: %s. Msg: %s" % (q["question_id"], tag, e.message)
-                        
-                        
+                                                
             tmpCnt = db.insert(q_tags, DataBase.q_tags)
             count += tmpCnt
     

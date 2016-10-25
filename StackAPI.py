@@ -27,7 +27,10 @@ class StackAPI(object):
         return data, has_more
 
     def read_response(self):
-        response = self.conn.getresponse()    
+        try:
+            response = self.conn.getresponse()
+        except httplib.HTTPException as e:
+            raise Exception(e.message)
         if response.status == 200:
             dataJSON = zlib.decompress(response.read(), 16 + zlib.MAX_WBITS)            
             json_data = json.loads(dataJSON)            

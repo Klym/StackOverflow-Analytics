@@ -23,7 +23,7 @@ class DataBase(object):
             self.cursor.execute(sql_select_stmt, params)
             row = self.cursor.fetchone()
             if not row:
-                raise Exception("No tag in database")
+                raise Exception("No results in database")
             return proc_fn(row)
         except pyodbc.DatabaseError as err:
             print err.args[1].decode("cp1251")
