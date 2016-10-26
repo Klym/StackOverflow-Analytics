@@ -89,3 +89,12 @@ class DataBase(object):
         is_accepted = 1 if row["is_accepted"] else 0
         date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
         return ("insert into [dbo].[answers] ([id], [user_id], [question_id], [is_accepted], [body], [score], [up_vote_count], creation_date) values (?,?,?,?,?,?,?,?)", (row["answer_id"], user_id, row["question_id"], is_accepted, row["body"], row["score"], row["up_vote_count"], date))
+    
+    @staticmethod
+    def comments(row):
+        user_id = row["owner"]["user_id"]
+        date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
+        answer_id = None if row["post_type"] == "question" else row["post_id"]
+        question_id = None if row["post_type"] == "answer" else row["post_id"]
+        edited = 1 if row["edited"] else 0
+        return ("insert into [dbo].[comments] ([id], [user_id], [answer_id], [question_id], [body], [score], [edited], [creation_date])", (row["comment_id"], user_id, answer_id, question_id, row["body"], row["score"], edited, date))

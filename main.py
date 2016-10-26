@@ -13,35 +13,43 @@ def main():
     db = DataBase()
     
     start_time = time.time()
-    '''    
-    count = 0
+    rows_count = 0
+    users_count = 0
     params = {'pagesize': 100, 'sort': 'reputation', 'filter': '!BTeL*ManaQamixcFXChIJdmUWwxR(9'}
-    for i in range(1, 10):
+    for i in range(1, 100):
         params['page'] = i
-        users = stackapi.get('users', params)
-        if users is None:
+        try:
+            users, has_more = stackapi.get('users', params)
+        except Exception:
             break
         tmpCnt = db.insert(users, DataBase.users)
-        count += tmpCnt
-    '''
+        rows_count += tmpCnt
+        users_count += tmpCnt
+        if not has_more:
+            break
+    print "Пользователи добавлены: %s" % users_count
     
-    '''
+    tags_count = 0
     params = {'pagesize': 100, 'sort': 'popular'}
-    count = 0    
-    for i in range(1, 470):
-        params['page'] = i
-        tags = stackapi.get('tags', params)
-        if tags is None:
+    page = 1
+    while True:
+        params['page'] = page
+        try:
+            tags, has_more = stackapi.get('tags', params)
+        except Exception:
             break
         tmpCnt = db.insert(tags, DataBase.tags)
-        count += tmpCnt
-    '''
+        rows_count += tmpCnt
+        tags_count += tmpCnt
+        if not has_more:
+            break
+        page += 1
+    print "Тэги добавлены: %s" % tags_count
 
     u_ids = db.select_all(DataBase.users_get, lambda x: x[0])
-    '''
-    count = 0
-    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
-    
+    questions_count = 0
+    many_tags_count = 0
+    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}    
     tags = {}
     
     for i in range(0, len(u_ids)):
@@ -50,12 +58,12 @@ def main():
             params['page'] = page
             try:
                 questions, has_more = stackapi.get('users/%s/questions' % u_ids[i], params)
-            except Exception as e:
-                print e.message
-                continue
+            except Exception:
+                break
             tmpCnt = db.insert(questions, DataBase.questions)
-            count += tmpCnt
-    
+            rows_count += tmpCnt
+            questions_count += tmpCnt
+            
             # Готовим словарь тэгов
             q_tags = []
             for q in questions:
@@ -69,14 +77,15 @@ def main():
                         print "Error while inserting tags. Question id: %s, tag name: %s. Msg: %s" % (q["question_id"], tag, e.message)
                                                 
             tmpCnt = db.insert(q_tags, DataBase.q_tags)
-            count += tmpCnt
-    
+            rows_count += tmpCnt
+            many_tags_count += tmpCnt
+            
             if not has_more:
                 break
             page += 1
-        print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
-    '''
-    count = 0
+        print "%s: Добавлены вопросы пользователя №%s" % (i + 1, u_ids[i])
+    
+    answers_count = 0
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!1zSsisBYpfc6Z)_I78GqP'}
 
     for i in range(0, len(u_ids)):
@@ -88,13 +97,39 @@ def main():
             except Exception:
                 break
             tmpCnt = db.insert(answers, DataBase.answers)
+            rows_count += tmpCnt
+            answers_count += tmpCnt
+            if not has_more:
+                break
+            page += 1
+        print "%s: Добавлены ответы пользователь №%s" % (i + 1, u_ids[i])
+    '''
+    count = 0    
+    params = {'pagesize': 100, 'sort': 'votes', 'filter': '!SWKA(oW8Wg69*y33Fw'}
+
+    for i in range(0, len(u_ids)):
+        page = 1        
+        while True:
+            params['page'] = page
+            try:
+                comments, has_more = stackapi.get('users/%s/comments' % u_ids[i], params)
+            except Exception:
+                break
+            tmpCnt = db.insert(comments, DataBase.comments)
             count += tmpCnt
             if not has_more:
                 break
             page += 1
         print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
-   
-    print "Добавлено строк в базу: %s" % count
+    '''
+    
+    print "\nПользователей добавлено: %s" % users_count
+    print "Тэгов добавлено: %s" % tags_count
+    print "Вопросов добавлено: %s" % questions_count
+    print "Связано тэгов с вопросами: %s" % many_tags_count
+    print "Ответов добавлено: %s" % answers_count
+    
+    print "\nДобавлено строк в базу: %s" % rows_count
     print "Время обработки: {:.3f} sec".format(time.time() - start_time)
     
     del stackapi

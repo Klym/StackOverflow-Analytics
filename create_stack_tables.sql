@@ -53,7 +53,6 @@ create table comments (
 	user_id			int not null foreign key references users(id),
 	answer_id		int null foreign key references answers(id),
 	question_id		int null foreign key references questions(id),
-	post_type		bit not null,
 	body			text not null,
 	score			int not null check(score >= 0),
 	edited			bit not null,
