@@ -8,6 +8,8 @@ import pyodbc, datetime
 
 class DataBase(object):
     
+    errors = 0    
+    
     def __init__(self):
         connection_str = 'DRIVER={ODBC Driver 13 for SQL Server};Server=localhost\SQLEXPRESS;Database=stackoverflow;Trusted_Connection=Yes;'
         with pyodbc.connect(connection_str) as self.cnxn:
@@ -48,6 +50,7 @@ class DataBase(object):
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
                 #print i, err.args[1].decode("cp1251")
+                DataBase.errors += 1
                 count += 1
         return len(data) - count
     
@@ -97,4 +100,4 @@ class DataBase(object):
         answer_id = None if row["post_type"] == "question" else row["post_id"]
         question_id = None if row["post_type"] == "answer" else row["post_id"]
         edited = 1 if row["edited"] else 0
-        return ("insert into [dbo].[comments] ([id], [user_id], [answer_id], [question_id], [body], [score], [edited], [creation_date])", (row["comment_id"], user_id, answer_id, question_id, row["body"], row["score"], edited, date))
+        return ("insert into [dbo].[comments] ([id], [user_id], [answer_id], [question_id], [body], [score], [edited], [creation_date]) values (?,?,?,?,?,?,?,?)", (row["comment_id"], user_id, answer_id, question_id, row["body"], row["score"], edited, date))

@@ -6,15 +6,19 @@ Created on Sun Oct 23 20:00:04 2016
 """
 from db import DataBase
 from StackAPI import StackAPI
-import time
+import time, sys
+reload(sys)
+sys.setdefaultencoding('cp866')
 
 def main():
     stackapi = StackAPI()
     db = DataBase()
-    
+
     start_time = time.time()
     rows_count = 0
+
     users_count = 0
+    '''
     params = {'pagesize': 100, 'sort': 'reputation', 'filter': '!BTeL*ManaQamixcFXChIJdmUWwxR(9'}
     for i in range(1, 100):
         params['page'] = i
@@ -45,11 +49,12 @@ def main():
             break
         page += 1
     print "Тэги добавлены: %s" % tags_count
-
+    
+    
     u_ids = db.select_all(DataBase.users_get, lambda x: x[0])
     questions_count = 0
     many_tags_count = 0
-    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}    
+    params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
     tags = {}
     
     for i in range(0, len(u_ids)):
@@ -85,6 +90,7 @@ def main():
             page += 1
         print "%s: Добавлены вопросы пользователя №%s" % (i + 1, u_ids[i])
     
+    
     answers_count = 0
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!1zSsisBYpfc6Z)_I78GqP'}
 
@@ -102,35 +108,52 @@ def main():
             if not has_more:
                 break
             page += 1
-        print "%s: Добавлены ответы пользователь №%s" % (i + 1, u_ids[i])
+        print "%s: Добавлены ответы пользователя №%s" % (i + 1, u_ids[i])
     '''
+    u_ids = db.select_all(DataBase.users_get, lambda x: x[0])
+
     count = 0    
     params = {'pagesize': 100, 'sort': 'votes', 'filter': '!SWKA(oW8Wg69*y33Fw'}
-
+    end = False
     for i in range(0, len(u_ids)):
-        page = 1        
+        page = 1
+        tmpCnt = 0
         while True:
             params['page'] = page
             try:
-                comments, has_more = stackapi.get('users/%s/comments' % u_ids[i], params)
-            except Exception:
-                break
+                comments, has_more, backoff = stackapi.get('users/%s/comments' % u_ids[i], params)
+                if backoff > 0:
+                    print "Sleep %s" % backoff
+                    time.sleep(backoff)
+                    stackapi.connect()
+            except Exception as e:
+                print e.message
+                is_next = raw_input(u'Повторить попытку(y/n)?\n')
+                if is_next == 'y':
+                    break
+                elif is_next == 'n':
+                    comments, has_more, end = [], False, True
             tmpCnt = db.insert(comments, DataBase.comments)
             count += tmpCnt
-            if not has_more:
+            if not has_more or backoff > 0:
                 break
             page += 1
-        print "%s: Обработан пользователь № %s" % (i + 1, u_ids[i])
-    '''
+        if end:
+            break
+        print u"%s: Добавлены комментарии пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], tmpCnt, page)
     
-    print "\nПользователей добавлено: %s" % users_count
-    print "Тэгов добавлено: %s" % tags_count
-    print "Вопросов добавлено: %s" % questions_count
-    print "Связано тэгов с вопросами: %s" % many_tags_count
-    print "Ответов добавлено: %s" % answers_count
+    print u"\nОшибок базы данный: %s" % DataBase.errors
+    print u"Ошибок получения данных: %s" % StackAPI.errors
     
-    print "\nДобавлено строк в базу: %s" % rows_count
-    print "Время обработки: {:.3f} sec".format(time.time() - start_time)
+    print u"\nПользователей добавлено: %s" % users_count
+    print u"Тэгов добавлено: %s" % 0
+    print u"Вопросов добавлено: %s" % 0
+    print u"Связано тэгов с вопросами: %s" % 0
+    print u"Ответов добавлено: %s" % 0    
+    print u"Комментариев добавлено: %s" % count
+    
+    print u"\nДобавлено строк в базу: %s" % rows_count
+    print u"Время обработки: {:.3f} sec".format(time.time() - start_time)
     
     del stackapi
     del db
