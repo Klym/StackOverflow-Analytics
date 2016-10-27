@@ -142,7 +142,7 @@ def main():
             break
         print u"%s: Добавлены комментарии пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], tmpCnt, page)
     
-    print u"\nОшибок базы данный: %s" % DataBase.errors
+    print u"\nОшибок базы данных: %s" % DataBase.errors
     print u"Ошибок получения данных: %s" % StackAPI.errors
     
     print u"\nПользователей добавлено: %s" % users_count
