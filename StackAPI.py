@@ -29,8 +29,7 @@ class StackAPI(object):
         try:
             self.conn.request("GET", "/2.2/%s?%s" % (category, params), "", self.headers)
         except:
-            print u"Ошибка подключения"
-            raise Exception
+            print u"Ошибка соединения с API"
         data, has_more, backoff = self.read_response()
         return data, has_more, backoff
 
@@ -45,7 +44,7 @@ class StackAPI(object):
         if response.status == 200:
             pass
         else:
-            err_str = "%s %s\n%s" % (response.status, response.reason, json_data["error_message"])
+            err_str = u"Ответ: %s %s\nСообщение: %s" % (response.status, response.reason, json_data["error_message"])
             StackAPI.errors += 1
             raise Exception(err_str)
         return json_data["items"], json_data["has_more"], json_data.get("backoff", 0)

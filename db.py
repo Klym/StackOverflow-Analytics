@@ -33,7 +33,8 @@ class DataBase(object):
                 raise Exception("No results in database")
             return proc_fn(row)
         except pyodbc.DatabaseError as err:
-            print err.args[1].decode("cp1251")
+            pass
+            #print err.args[1].decode("cp1251")
         return None
     
     def select_all(self, func, proc_fn):
@@ -43,7 +44,8 @@ class DataBase(object):
             rows = self.cursor.fetchall()
             return map(proc_fn, rows)
         except pyodbc.DatabaseError as err:
-            print err.args[1].decode("cp1251")
+            pass
+            #print err.args[1].decode("cp1251")
         return None
     
     def insert(self, data, func):
@@ -54,7 +56,7 @@ class DataBase(object):
                 self.cursor.execute(sql_insert_stmt, fields)
                 self.cursor.commit()
             except pyodbc.DatabaseError as err:
-                #print i, err.args[1].decode("cp1251")
+                #print err.args[1].decode("cp1251")
                 DataBase.errors += 1
                 count += 1
         return len(data) - count
