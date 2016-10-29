@@ -12,12 +12,17 @@ class DataBase(object):
     
     def __init__(self):
         connection_str = 'DRIVER={ODBC Driver 13 for SQL Server};Server=localhost\SQLEXPRESS;Database=stackoverflow;Trusted_Connection=Yes;'
-        with pyodbc.connect(connection_str) as self.cnxn:
-            self.cursor = self.cnxn.cursor()            
+        try:
+            with pyodbc.connect(connection_str) as self.cnxn:
+                self.cursor = self.cnxn.cursor()
+        except pyodbc.Error as err:
+            print err.args[1].decode("cp1251")
+            raise SystemExit(1)
 
     def __del__(self):
-        self.cursor.close()
-        self.cnxn.close()
+        if hasattr(DataBase, "cursor"):
+            self.cursor.close()
+            self.cnxn.close()
     
     def select(self, func, proc_fn, params = None):
         sql_select_stmt = func()
