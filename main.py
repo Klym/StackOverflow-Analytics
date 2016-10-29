@@ -138,7 +138,6 @@ def main():
     a_ids = db.select_all(DataBase.answers_get, lambda x: x[0])
     comments_count = 0
     params = {'pagesize': 100, 'sort': 'votes', 'filter': '!SWKA(oW8Wg69*y33Fw'}
-    end = False
     for i in range(0, len(a_ids)):
         page = 1
         tmpCnt = 0
@@ -150,21 +149,18 @@ def main():
                     print "Sleep %s" % backoff
                     time.sleep(backoff)
                     stackapi.connect()
-            except Exception as e:
-                print e.message
+            except Exception:
                 is_next = raw_input(u'Повторить попытку(y/n)?\n')
                 if is_next == 'y':
                     break
                 elif is_next == 'n':
-                    comments, has_more, end = [], False, True
+                    exit(0)
             tmpCnt = db.insert(comments, DataBase.comments)
             rows_count += tmpCnt
             comments_count += tmpCnt
             if not has_more:
                 break
             page += 1
-        if end:
-            break
         print u"%s: Добавлены комментарии ответа №%s (%s), запросов: %s" % (i + 1, a_ids[i], tmpCnt, page)
     
     print u"\nОшибок базы данных: %s" % DataBase.errors

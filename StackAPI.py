@@ -26,7 +26,11 @@ class StackAPI(object):
         params['order'] = 'desc'
         params['site'] = 'stackoverflow'
         params = urllib.urlencode(params)
-        self.conn.request("GET", "/2.2/%s?%s" % (category, params), "", self.headers)
+        try:
+            self.conn.request("GET", "/2.2/%s?%s" % (category, params), "", self.headers)
+        except:
+            print u"Ошибка подключения"
+            raise Exception
         data, has_more, backoff = self.read_response()
         return data, has_more, backoff
 
