@@ -88,14 +88,22 @@ class DataBase(object):
     
     @staticmethod
     def answers(row):
-        user_id = row["owner"]["user_id"]
+        user_id = row["owner"].get("user_id", 0)
         is_accepted = 1 if row["is_accepted"] else 0
         date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
         return ("insert into [dbo].[answers] ([id], [user_id], [question_id], [is_accepted], [body], [score], [up_vote_count], creation_date) values (?,?,?,?,?,?,?,?)", (row["answer_id"], user_id, row["question_id"], is_accepted, row["body"], row["score"], row["up_vote_count"], date))
     
     @staticmethod
+    def answers_get():
+        return "select [id] from [dbo].[answers]"
+    
+    @staticmethod
+    def questions_get():
+        return "select [id] from [dbo].[questions]"
+    
+    @staticmethod
     def comments(row):
-        user_id = row["owner"]["user_id"]
+        user_id = row["owner"].get("user_id", 0)
         date = datetime.datetime.fromtimestamp(int(row["creation_date"]))
         answer_id = None if row["post_type"] == "question" else row["post_id"]
         question_id = None if row["post_type"] == "answer" else row["post_id"]
