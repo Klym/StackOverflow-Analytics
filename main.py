@@ -6,19 +6,31 @@ Created on Sun Oct 23 20:00:04 2016
 """
 from db import DataBase
 from StackAPI import StackAPI
-import time, sys
+from datetime import datetime
+import time, sys, argparse
 reload(sys)
 sys.setdefaultencoding('cp866')
 
 def main():
+    parser = argparse.ArgumentParser(description=u"Получение данных ресурса stackoverflow.com")
+    parser.add_argument('-u', '--users', type=int, dest='u', help=u'Получить U страниц пользователей(U * 100)')
+    parser.add_argument('-t', '--tags', action='store_true', help=u'Получить все тэги ресурса')
+    parser.add_argument('-e', '--errors', action='store_true', help=u'Включить вывод ошибок')
+    parser.add_argument('-l', '--log', action='store_true', help=u'Создать файл лога')
+    args = parser.parse_args()
+    print args
+    exit()
+    
+    start_time = time.time()
     stackapi = StackAPI()
     db = DataBase()
+    
+    print u"Начало загрузки: %s" % datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
-    start_time = time.time()
     rows_count = 0
-
-    users_count = 0
-    '''
+    
+    # Получаем пользователей
+    users_count = 0    
     params = {'pagesize': 100, 'sort': 'reputation', 'filter': '!BTeL*ManaQamixcFXChIJdmUWwxR(9'}
     for i in range(1, 2):
         params['page'] = i
@@ -37,9 +49,8 @@ def main():
         if not has_more:
             break
     print "Пользователи добавлены: %s" % users_count
-    '''
+    
     tags_count = 0
-    '''
     params = {'pagesize': 100, 'sort': 'popular'}
     page = 1
     tmpCnt = 0
@@ -61,7 +72,7 @@ def main():
             break
         page += 1
     print "Тэги добавлены: %s, запросов: %s" % (tags_count, page)
-    '''
+    
     
     u_ids = db.select_all(DataBase.users_get, lambda x: x[0])
     
@@ -69,7 +80,7 @@ def main():
     many_tags_count = 0
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!FcbKgRDEwU1MPQ78HUmuZzcY8x'}
     tags = {}
-    '''
+    
     for i in range(0, len(u_ids)):
         page = 1
         tmpCnt = 0
@@ -108,11 +119,11 @@ def main():
                 break
             page += 1
         print "%s: Добавлены вопросы пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], tmpCnt, page)
-    '''
+    
     q_ids = db.select_all(DataBase.questions_get, lambda x: x[0])
     answers_count = 0
     params = {'pagesize': 100, 'sort': 'activity', 'filter': '!1zSsisBYpfc6Z)_I78GqP'}
-    '''
+    
     for i in range(0, len(q_ids)):
         page = 1
         tmpCnt = 0
@@ -134,7 +145,7 @@ def main():
                 break
             page += 1
         print "%s: Добавлены ответы к вопросу №%s (%s), запросов: %s" % (i + 1, q_ids[i], tmpCnt, page)
-    '''
+    
     a_ids = db.select_all(DataBase.answers_get, lambda x: x[0])
     comments_count = 0
     params = {'pagesize': 100, 'sort': 'votes', 'filter': '!SWKA(oW8Wg69*y33Fw'}
