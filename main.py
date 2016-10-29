@@ -32,7 +32,7 @@ def get_tags(stackapi, db):
         if not has_more:
             break
         page += 1
-    print "Тэги добавлены: %s, запросов: %s" % (tags_count, page)
+    print u"Тэги добавлены: %s, запросов: %s" % (tags_count, page)
     return tags_count
 
 def get_users(stackapi, db, pages_count):
@@ -53,7 +53,7 @@ def get_users(stackapi, db, pages_count):
         users_count += tmpCnt
         if not has_more:
             break
-    print "Пользователи добавлены: %s" % users_count
+    print u"Пользователи добавлены: %s" % users_count
     return users_count
     
 def get_questions(stackapi, db):
@@ -96,7 +96,7 @@ def get_questions(stackapi, db):
             if not has_more:
                 break
             page += 1
-        print "%s: Добавлены вопросы пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], tmpCnt, page)
+        print u"%s: Добавлены вопросы пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], questions_count, page)
     return questions_count, many_tags_count
 
 def get_answers(stackapi, db):
@@ -123,7 +123,7 @@ def get_answers(stackapi, db):
             if not has_more:
                 break
             page += 1
-        print "%s: Добавлены ответы к вопросу №%s (%s), запросов: %s" % (i + 1, q_ids[i], tmpCnt, page)
+        print u"%s: Добавлены ответы к вопросу №%s (%s), запросов: %s" % (i + 1, q_ids[i], tmpCnt, page)
     return answers_count
 
 def get_comments(stackapi, db):

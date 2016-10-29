@@ -34,7 +34,8 @@ create table questions (
 
 create table q_tags (
 	question_id		int not null foreign key references questions(id),
-	tag_id			int not null foreign key references tags(id)
+	tag_id			int not null foreign key references tags(id),
+	primary key		(question_id, tag_id)
 )
 
 create table answers (
