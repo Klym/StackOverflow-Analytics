@@ -36,10 +36,10 @@ def get_tags(stackapi, db, log):
     log.write(u"Тэгов добавлено: %s, запросов: %s" % (tags_count, page))
     return tags_count
 
-def get_users(stackapi, db, log, pages_count):
+def get_users(stackapi, db, log, pages_from, pages_count):
     users_count = 0
     params = {'pagesize': 100, 'sort': 'reputation', 'filter': '!BTeL*ManaQamixcFXChIJdmUWwxR(9'}
-    for i in range(1, pages_count + 1):
+    for i in range(pages_from, pages_count + 1):
         params['page'] = i
         try:
             users, has_more, backoff = stackapi.get('users', params)
@@ -163,11 +163,14 @@ def get_comments(stackapi, db, log):
 
 def main():
     parser = argparse.ArgumentParser(description=u"Получение данных ресурса stackoverflow.com")
-    parser.add_argument('-u', '--users', type=int, help=u'Получить USERS страниц пользователей')
+    parser.add_argument('-u', '--users', type=int, nargs=2, metavar=('from', 'count'), help=u'Получить пользователей ресурса')
     parser.add_argument('-t', '--tags', action='store_true', help=u'Получить все тэги ресурса')
-    parser.add_argument('-l', '--log', type=str, nargs='?', const='out.log', help=u'Создать файл лога(LOG - абсолютный путь к файлу)')
+    parser.add_argument('-q', '--questions', nargs='?', metavar='from', help=u'Получить вопросы пользователей после from(user_id)')
+    parser.add_argument('-a', '--answers', nargs='?', metavar='from', help=u'Получить ответы к вопросам после from(question_id)')
+    parser.add_argument('-c', '--comments', nargs='?', metavar='from', help=u'Получить комментарии к ответам после from(answer_id)')
+    parser.add_argument('-l', '--log', type=str, nargs='?', const='out.log', metavar='path', help=u'Создать файл лога')
     args = parser.parse_args()
-
+    
     # Создаем файл лога
     log = Log(args.log)
     
@@ -179,22 +182,25 @@ def main():
     
     log.write(u"Начало загрузки: %s" % datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
     
-    # Получаем тэги
     if args.tags:
+        # Получаем тэги
         tags_count = get_tags(stackapi, db, log)
-        rows_count += tags_count
-        
+        rows_count += tags_count        
     if args.users is not None:
         # Получаем пользователей
-        pages = args.users if args.users > 0 else 1
-        users_count = get_users(stackapi, db, log, pages)
+        pages_count = args.users[0] if args.users[0] > 0 else 1
+        pages = args.users[1] if args.users[1] > 0 else 1
+        users_count = get_users(stackapi, db, log, pages_count, pages)
         rows_count += users_count
+    if args.questions is not None:
         # Получаем вопросы
         questions_count, many_tags_count = get_questions(stackapi, db, log)
         rows_count += questions_count + many_tags_count
+    if args.answers is not None:
         # Получаем ответы
         answers_count = get_answers(stackapi, db, log)
         rows_count += answers_count
+    if args.comments is not None:
         # Получаем комментарии
         comments_count = get_comments(stackapi, db, log)
         rows_count += comments_count
