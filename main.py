@@ -65,7 +65,7 @@ def get_questions(stackapi, db, log):
     
     for i in range(0, len(u_ids)):
         page = 1
-        tmpCnt = 0
+        tmpCnt, q_tmp_cnt = 0, 0
         while True:
             params['page'] = page
             try:
@@ -79,7 +79,8 @@ def get_questions(stackapi, db, log):
                 break
             tmpCnt = db.insert(questions, DataBase.questions)
             questions_count += tmpCnt
-            
+            q_tmp_cnt = tmpCnt
+			
             # Готовим словарь тэгов
             q_tags = []
             for q in questions:
@@ -98,7 +99,7 @@ def get_questions(stackapi, db, log):
             if not has_more:
                 break
             page += 1
-        log.write(u"%s: Добавлены вопросы пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], questions_count, page))
+        log.write(u"%s: Добавлены вопросы пользователя №%s (%s), запросов: %s" % (i + 1, u_ids[i], q_tmp_cnt, page))
     return questions_count, many_tags_count
 
 def get_answers(stackapi, db, log):
