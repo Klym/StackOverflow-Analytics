@@ -166,12 +166,12 @@ def main():
     parser = argparse.ArgumentParser(description=u"Получение данных ресурса stackoverflow.com")
     parser.add_argument('-u', '--users', type=int, nargs=2, metavar=('from', 'count'), help=u'Получить пользователей ресурса')
     parser.add_argument('-t', '--tags', action='store_true', help=u'Получить все тэги ресурса')
-    parser.add_argument('-q', '--questions', nargs='?', metavar='from', help=u'Получить вопросы пользователей после from(user_id)')
-    parser.add_argument('-a', '--answers', nargs='?', metavar='from', help=u'Получить ответы к вопросам после from(question_id)')
-    parser.add_argument('-c', '--comments', nargs='?', metavar='from', help=u'Получить комментарии к ответам после from(answer_id)')
+    parser.add_argument('-q', '--questions', type=int, nargs='?', const=0, metavar='from', help=u'Получить вопросы пользователей после from(user_id)')
+    parser.add_argument('-a', '--answers', type=int, nargs='?', const=0, metavar='from', help=u'Получить ответы к вопросам после from(question_id)')
+    parser.add_argument('-c', '--comments', type=int, nargs='?', const=0, metavar='from', help=u'Получить комментарии к ответам после from(answer_id)')
     parser.add_argument('-l', '--log', type=str, nargs='?', const='out.log', metavar='path', help=u'Создать файл лога')
     args = parser.parse_args()
-    
+
     # Создаем файл лога
     log = Log(args.log)
     
