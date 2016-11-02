@@ -38,12 +38,11 @@ class DataBase(object):
         return None
     
     def select_all(self, func, proc_fn):
-        sql_select_all_stmt = func()
-        try:
-            self.cursor.execute(sql_select_all_stmt)
+        try:            
+            self.cursor.execute(func())
             rows = self.cursor.fetchall()
             return map(proc_fn, rows)
-        except pyodbc.DatabaseError as err:
+        except Exception as err:
             pass
             #print err.args[1].decode("cp1251")
         return None
@@ -71,7 +70,7 @@ class DataBase(object):
     
     @staticmethod
     def users_get():
-        return "select [id] from [dbo].[users]"
+        return "select [id] from [dbo].[users] where (select count(*) from [dbo].[questions] where [user_id] = [users].[id]) = 0 and [question_count] != 0"
     
     @staticmethod
     def tags(row):
@@ -94,6 +93,10 @@ class DataBase(object):
         return ("insert into [dbo].[questions] ([id], [user_id], [title], [body], [is_answered], [view_count], [answer_count], [score], [up_vote_count], [creation_date]) values (?,?,?,?,?,?,?,?,?,?)", (row["question_id"], user_id, row["title"], row["body"], is_answered, row["view_count"], row["answer_count"], row["score"], row["up_vote_count"], date))
     
     @staticmethod
+    def questions_get():
+        return "select [id] from [dbo].[questions] where (select count(*) from [dbo].[answers] where [question_id] = [questions].[id]) = 0 and [answer_count] != 0"
+    
+    @staticmethod
     def answers(row):
         user_id = row["owner"].get("user_id", 0)
         is_accepted = 1 if row["is_accepted"] else 0
@@ -102,11 +105,7 @@ class DataBase(object):
     
     @staticmethod
     def answers_get():
-        return "select [id] from [dbo].[answers]"
-    
-    @staticmethod
-    def questions_get():
-        return "select [id] from [dbo].[questions]"
+        return "select [id] from [dbo].[answers] where (select count(*) from [dbo].[comments] where [answer_id] = [answers].[id]) = 0"
     
     @staticmethod
     def comments(row):
