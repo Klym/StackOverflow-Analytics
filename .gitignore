@@ -1,10 +1,10 @@
 .vs/*
-/bin/*
-/obj/*
-/Properties/*
-App.config
+StackOverflow Analytics/bin/*
+StackOverflow Analytics/obj/*
+StackOverflow Analytics/Properties/*
+StackOverflow Analytics/*.csproj
+StackOverflow Analytics/App.config
 *.sln
-*.csproj
 *.user
 *.pyc
 *.log
