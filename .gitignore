@@ -1,2 +1,10 @@
+.vs/*
+/bin/*
+/obj/*
+/Properties/*
+App.config
+*.sln
+*.csproj
+*.user
 *.pyc
 *.log
