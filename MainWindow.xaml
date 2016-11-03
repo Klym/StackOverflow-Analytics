@@ -32,7 +32,7 @@
                 </StackPanel>
             </Expander>
         </StackPanel>
-        <ListBox Grid.Column="1" x:Name="questionsList" HorizontalContentAlignment="Stretch">
+        <ListBox x:Name="questionsList" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" Margin="329,0,10,0">
             <TextBlock FontWeight="Bold" TextDecorations="Underline" Text="Лучшие вопросы" />
             <ListBoxItem>
                 <Grid >
