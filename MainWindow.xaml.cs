@@ -32,18 +32,23 @@ namespace StackOverflow_Analytics {
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             string sql = "SELECT * FROM users";
             SqlConnection connection = null;
+            SqlDataReader reader = null;
             try {
                 connection = new SqlConnection(connectionStr);
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 connection.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
                 reader.Read();
                 //MessageBox.Show(reader["display_name"].ToString());
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             } finally {
-                if (connection != null)
+                if (reader != null) {
+                    reader.Close();
+                }
+                if (connection != null) {
                     connection.Close();
+                }
             }
         }
     }
