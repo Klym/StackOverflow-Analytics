@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace StackOverflow_Analytics {
     /// </summary>
     public partial class MainWindow : Window {
 
-        string connectionStr;
+        public string connectionStr;
+        public ObservableCollection<Question> Questions { get; set; }
 
         public MainWindow() {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace StackOverflow_Analytics {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            string sql = "SELECT * FROM users";
+            string sql = "SELECT questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
             SqlConnection connection = null;
             SqlDataReader reader = null;
             try {
@@ -38,8 +40,12 @@ namespace StackOverflow_Analytics {
                 SqlCommand cmd = new SqlCommand(sql, connection);
                 connection.Open();
                 reader = cmd.ExecuteReader();
-                reader.Read();
-                //MessageBox.Show(reader["display_name"].ToString());
+                Questions = new ObservableCollection<Question>();
+                while (reader.Read()) {
+                    Questions.Add(new Question(reader["id"].ToString(), reader["u_name"].ToString(), reader["title"].ToString(), reader["body"].ToString(), "false", reader["answer_count"].ToString(), reader["view_count"].ToString(), reader["score"].ToString(), reader["up_vote_count"].ToString(), reader["creation_date"].ToString()));
+                }
+                questionsList.Items.Clear();
+                questionsList.ItemsSource = Questions;
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             } finally {

@@ -16,19 +16,21 @@ namespace StackOverflow_Analytics {
         public int Score { get; set; }
         public int UpVoteCount { get; set; }
         public DateTime CreationDate { get; set; }
+        public string DateString { get; set; }
 
-        public Question(int id, string user, string title, string body, bool isAnswerd, int aCnt, int vCnt, int score, int upCnt, string date) {
-            this.Id = id;
+        public Question(string id, string user, string title, string body, string isAnswerd, string aCnt, string vCnt, string score, string upCnt, string date) {
+            this.Id = int.Parse(id);
             this.UserName = user;
             this.Title = title;
             this.Body = body;
-            this.IsAnswerd = isAnswerd;
-            this.AnswerCount = aCnt;
-            this.ViewCount = vCnt;
-            this.Score = score;
-            this.UpVoteCount = UpVoteCount;
-            string[] parseDate = date.Split('-');
-            this.CreationDate = new DateTime(int.Parse(parseDate[0]), int.Parse(parseDate[1]), int.Parse(parseDate[2]));
+            this.IsAnswerd = Boolean.Parse(isAnswerd);
+            this.AnswerCount = int.Parse(aCnt);
+            this.ViewCount = int.Parse(vCnt);
+            this.Score = int.Parse(score);
+            this.UpVoteCount = int.Parse(upCnt);
+            string[] parseDate = date.Split('.');
+            this.CreationDate = new DateTime(int.Parse(parseDate[2].Substring(0, parseDate[2].IndexOf(' '))), int.Parse(parseDate[1]), int.Parse(parseDate[0]));
+            this.DateString = this.CreationDate.ToString("dd.MM.yyyy");
         }
     }
 }
