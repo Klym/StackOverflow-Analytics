@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StackOverflow_Analytics"
         mc:Ignorable="d"
-        Title="StackOverflow Analytics" Height="650" Width="1100">
+        Title="StackOverflow Analytics" Height="650" Width="1100" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style x:Key="ListTagsStyle" TargetType="ListBoxItem">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -33,12 +33,12 @@
             </Expander>
         </StackPanel>
         <ListBox Grid.Column="1" x:Name="questionsList" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2">
-            <TextBlock FontWeight="Bold" TextDecorations="Underline" Text="Лучшие вопросы" />
+            <TextBlock FontWeight="DemiBold" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы" />
             <ListBoxItem>
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170" />
-                        <ColumnDefinition  Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center">
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>голосов</Run></TextBlock>
@@ -47,19 +47,22 @@
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
                         <TextBlock Foreground="BlueViolet" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
-                        <ListBox x:Name="tagsList" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="c#" Padding="5" />
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="wpf" Padding="5" />
-                            </ListBoxItem>
-                        </ListBox>
+                        <UniformGrid Columns="2">
+                            <ListBox x:Name="tagsList" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="c#" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="wpf" Padding="5" />
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run>09.02.2016</Run></TextBlock>
+                        </UniformGrid>
                     </UniformGrid>
                 </Grid>
             </ListBoxItem>
@@ -75,20 +78,23 @@
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>показов</Run></TextBlock>
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
-                        <TextBlock Foreground="BlueViolet" FontSize="15">Как создать новую переменную на основе двух в объекте class для использования в pipeline</TextBlock>
-                        <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="python" Padding="5" />
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="python-3.x" Padding="5" />
-                            </ListBoxItem>
-                        </ListBox>
+                        <TextBlock Foreground="BlueViolet" MaxWidth="540" TextWrapping="WrapWithOverflow" FontSize="15">Как создать новую переменную на основе двух в объекте class для использования в pipeline</TextBlock>
+                        <UniformGrid Columns="2">
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="python" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="python-3.x" Padding="5" />
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run>09.02.2016</Run></TextBlock>
+                        </UniformGrid>
                     </UniformGrid>
                 </Grid>
             </ListBoxItem>
@@ -105,19 +111,31 @@
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
                         <TextBlock Foreground="BlueViolet" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
-                        <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="c#" Padding="5" />
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <Button Background="AliceBlue" Content="wpf" Padding="5" />
-                            </ListBoxItem>
-                        </ListBox>
+                        <UniformGrid Columns="2">
+                            <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="c#" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="wpf" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content=".htaccess" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="python" Padding="5" />
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <Button Background="AliceBlue" Content="php" Padding="5" />
+                                </ListBoxItem>
+                            </ListBox>
+                            <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run>09.02.2016</Run></TextBlock>
+                        </UniformGrid>
                     </UniformGrid>
                 </Grid>
             </ListBoxItem>
