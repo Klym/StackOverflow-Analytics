@@ -32,7 +32,7 @@ namespace StackOverflow_Analytics {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            string sql = "SELECT questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
+            string sql = "SELECT TOP 100 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
             SqlConnection connection = null;
             SqlDataReader reader = null;
             try {
@@ -44,7 +44,6 @@ namespace StackOverflow_Analytics {
                 while (reader.Read()) {
                     Questions.Add(new Question(reader["id"].ToString(), reader["u_name"].ToString(), reader["title"].ToString(), reader["body"].ToString(), "false", reader["answer_count"].ToString(), reader["view_count"].ToString(), reader["score"].ToString(), reader["up_vote_count"].ToString(), reader["creation_date"].ToString()));
                 }
-                questionsList.Items.Clear();
                 questionsList.ItemsSource = Questions;
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);

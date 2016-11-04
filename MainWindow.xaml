@@ -10,6 +10,20 @@
     <Window.Resources>
         <Style x:Key="ListTagsStyle" TargetType="ListBoxItem">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="{x:Null}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
@@ -38,8 +52,8 @@
                 <RowDefinition Height="25" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Все вопросы:" />
-            <ListBox x:Name="questionsList" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+            <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы:" />
+            <ListBox x:Name="questionsList" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -55,18 +69,19 @@
                             <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
                                 <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding Path=Title}"></TextBlock>
                                 <UniformGrid Columns="2">
-                                    <ListBox x:Name="tagsList" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                    <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel Orientation="Horizontal"/>
                                             </ItemsPanelTemplate>
                                         </ListBox.ItemsPanel>
-                                        <ListBoxItem>
-                                            <Button Background="AliceBlue" Content="c#" Padding="5" />
-                                        </ListBoxItem>
-                                        <ListBoxItem>
-                                            <Button Background="AliceBlue" Content="wpf" Padding="5" />
-                                        </ListBoxItem>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListBoxItem Padding="0">
+                                                    <Button Background="AliceBlue" Height="22" Content="{Binding Path=Name}" Padding="3, 0, 3, 0" />
+                                                </ListBoxItem>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
                                     </ListBox>
                                     <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
                                 </UniformGrid>
