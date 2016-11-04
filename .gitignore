@@ -1,8 +1,11 @@
 /bin/*
 /obj/*
 /Properties/*
-App.config
 *.csproj
+*.Designer.cs
+*.xsc
+*.xsd
+*.xss
 *.user
 *.pyc
 *.log
