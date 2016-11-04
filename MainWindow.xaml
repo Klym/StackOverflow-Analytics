@@ -38,7 +38,7 @@
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="540" />
                     </Grid.ColumnDefinitions>
                     <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center">
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>голосов</Run></TextBlock>
@@ -46,7 +46,7 @@
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>показов</Run></TextBlock>
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
-                        <TextBlock Foreground="BlueViolet" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
+                        <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
                         <UniformGrid Columns="2">
                             <ListBox x:Name="tagsList" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                 <ListBox.ItemsPanel>
@@ -70,7 +70,7 @@
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170"/>
-                        <ColumnDefinition  Width="*" />
+                        <ColumnDefinition  Width="540"/>
                     </Grid.ColumnDefinitions>
                     <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center" >
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>голосов</Run></TextBlock>
@@ -78,7 +78,7 @@
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>показов</Run></TextBlock>
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
-                        <TextBlock Foreground="BlueViolet" MaxWidth="540" TextWrapping="WrapWithOverflow" FontSize="15">Как создать новую переменную на основе двух в объекте class для использования в pipeline</TextBlock>
+                        <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15">Как создать новую переменную на основе двух в объекте class для использования в pipeline</TextBlock>
                         <UniformGrid Columns="2">
                             <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                 <ListBox.ItemsPanel>
@@ -102,7 +102,7 @@
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170" />
-                        <ColumnDefinition  Width="*" />
+                        <ColumnDefinition  Width="540" />
                     </Grid.ColumnDefinitions>
                     <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center">
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>голосов</Run></TextBlock>
@@ -110,7 +110,7 @@
                         <TextBlock TextAlignment="Center"><Run FontSize="17">0</Run><LineBreak /><Run>показов</Run></TextBlock>
                     </UniformGrid>
                     <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
-                        <TextBlock Foreground="BlueViolet" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
+                        <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15">Установка windows на реальный жесткий диск через Virtualbox</TextBlock>
                         <UniformGrid Columns="2">
                             <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                 <ListBox.ItemsPanel>
