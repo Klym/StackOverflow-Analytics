@@ -12,7 +12,7 @@ namespace StackOverflow_Analytics {
         public string UserName { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
-        public bool IsAnswerd { get; set; }
+        public bool IsAnswered { get; set; }
         public int AnswerCount { get; set; }
         public int ViewCount { get; set; }
         public int Score { get; set; }
@@ -21,12 +21,12 @@ namespace StackOverflow_Analytics {
         public string DateString { get; set; }
         public ObservableCollection<Tag> Tags { get; }
 
-        public Question(string id, string user, string title, string body, string isAnswerd, string aCnt, string vCnt, string score, string upCnt, string date) {
+        public Question(string id, string user, string title, string body, string isAnswered, string aCnt, string vCnt, string score, string upCnt, string date) {
             this.Id = int.Parse(id);
             this.UserName = user;
             this.Title = title;
             this.Body = body;
-            this.IsAnswerd = Boolean.Parse(isAnswerd);
+            this.IsAnswered = bool.Parse(isAnswered);
             this.AnswerCount = int.Parse(aCnt);
             this.ViewCount = int.Parse(vCnt);
             this.Score = int.Parse(score);

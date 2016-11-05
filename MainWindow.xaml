@@ -63,7 +63,21 @@
                             </Grid.ColumnDefinitions>
                             <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center">
                                 <TextBlock TextAlignment="Center"><Run FontSize="17" Text="{Binding Path=Score}" /><LineBreak /><Run>голосов</Run></TextBlock>
-                                <TextBlock TextAlignment="Center"><Run FontSize="17" Text="{Binding Path=AnswerCount}" /><LineBreak /><Run>ответов</Run></TextBlock>
+                                <TextBlock TextAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Path=IsAnswered}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Background" Value="#4C18E23C" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <Run FontSize="17" Text="{Binding Path=AnswerCount}" /><LineBreak /><Run>ответов</Run>
+                                </TextBlock>
                                 <TextBlock TextAlignment="Center"><Run FontSize="17" Text="{Binding Path=ViewCount}" /><LineBreak /><Run>показов</Run></TextBlock>
                             </UniformGrid>
                             <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
@@ -77,13 +91,13 @@
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <ListBoxItem Padding="0">
+                                                <ListBoxItem Padding="0" Cursor="Hand">
                                                     <Button Background="AliceBlue" Height="22" Content="{Binding Path=Name}" Padding="3, 0, 3, 0" />
                                                 </ListBoxItem>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
-                                    <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
+                                    <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
                                 </UniformGrid>
                             </UniformGrid>
                         </Grid>
