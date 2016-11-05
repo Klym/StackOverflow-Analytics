@@ -15,16 +15,11 @@ using System.Windows.Shapes;
 
 namespace StackOverflow_Analytics {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for QuestionsListPage.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-
-        public MainWindow() {
+    public partial class QuestionsListPage : Page {
+        public QuestionsListPage() {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
-            DataContext = new QuestionsViewModel();
         }
     }
 }
