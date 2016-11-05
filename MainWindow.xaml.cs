@@ -32,7 +32,7 @@ namespace StackOverflow_Analytics {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            string sql = "SELECT TOP 1000 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
+            string sql = "SELECT TOP 300 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
             SqlConnection connection = null;
             SqlDataReader reader = null;
             try {

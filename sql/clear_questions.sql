@@ -1,0 +1,2 @@
+delete from q_tags where q_tags.question_id in (select questions.id from questions where (select count(*) from [dbo].[answers] where [answers].[question_id] = [questions].[id]) = 0 and [answer_count] != 0 and questions.id <= 3552844)
+delete from questions where (select count(*) from [dbo].[answers] where [answers].[question_id] = [questions].[id]) = 0 and [answer_count] != 0 and questions.id <= 3552844
