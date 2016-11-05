@@ -33,18 +33,10 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <Expander Header="Вопросы">
-                <TextBlock>Однажды в студеную зимнюю пору...</TextBlock>
             </Expander>
             <Expander Header="Пользователи">
-                <TextBlock>Онегин был, по мнению многих, ученый малый, но ...</TextBlock>
             </Expander>
             <Expander Header="Теги">
-                <StackPanel>
-                    <TextBlock>Отметьте, что вам больше нравится</TextBlock>
-                    <CheckBox>WinForms</CheckBox>
-                    <CheckBox>WPF</CheckBox>
-                    <CheckBox>ASP.NET</CheckBox>
-                </StackPanel>
             </Expander>
         </StackPanel>
         <Grid Grid.Column="1">
