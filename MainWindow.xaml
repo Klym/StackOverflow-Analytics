@@ -75,7 +75,7 @@
                             <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
                                 <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding Path=Title}"></TextBlock>
                                 <UniformGrid Columns="2">
-                                    <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                    <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel Orientation="Horizontal"/>
