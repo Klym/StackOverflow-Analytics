@@ -9,6 +9,49 @@
       Title="QuestionViewPage">
 
     <Grid>
-        <TextBlock>Тест</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" TextAlignment="Center"  Margin="10, 10, 0, 10" FontSize="17" Text="How to keep WebRTC dataChannel open in phone browser inactive tab?" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14" Text="12" MinHeight="380">
+                <LineBreak />
+                <Run Text="Голосов" />
+                <LineBreak /><LineBreak /><LineBreak />
+                <Run Text="312" />
+                <LineBreak />
+                <Run Text="Просмотров" />
+                <LineBreak /><LineBreak /><LineBreak />
+                <Run Text="221" />
+                <LineBreak />
+                <Run Text="Ответов" />
+            </TextBlock>
+            <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 5, 5">
+                <TextBlock TextWrapping="WrapWithOverflow" FontSize="13">I am making a web application that uses WebRTC. It works just fine on desktop browsers. However on a small smartphone web browser, there are unwanted events: When switching tabs on the mobile web browser chrome for android and firefox for android, an open webrtc data channel that is created with .createDataChannel closes. The dataChannel.onclose event handler is fired. How to prevent the data channel from closing ? If that is not possible, is it possible to reopen the data channel without restarting the whole signaling phase ? This also happens when browsing for a file with I browsed stackoverflow a bit and noticed there are other things that are cut down/slowed down in inactive tabs like requestTimeOut and setInterval.</TextBlock>
+                <UniformGrid Columns="2">
+                    <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ListBoxItem Padding="0" Cursor="Hand">
+                                    <Button Background="AliceBlue" Height="22" Content="{Binding Path=Name}" Padding="3, 0, 3, 0" />
+                                </ListBoxItem>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock Foreground="Gray" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
+                </UniformGrid>
+            </UniformGrid>
+        </Grid>
+
     </Grid>
 </Page>

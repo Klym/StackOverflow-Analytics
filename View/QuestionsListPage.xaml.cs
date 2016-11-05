@@ -30,9 +30,10 @@ namespace StackOverflow_Analytics {
             this.mainWindow = (MainWindow)Window.GetWindow(this);
         }
 
-        private void questionsList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {            
+        private void questionsList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            Question selectedQuestion = (Question)questionsList.SelectedItem;
             this.mainWindow.MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            this.mainWindow.MainFrame.Navigate(new QuestionViewPage());
+            this.mainWindow.MainFrame.Navigate(new QuestionViewPage(selectedQuestion));
         }
         
     }

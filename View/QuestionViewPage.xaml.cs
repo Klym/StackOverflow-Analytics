@@ -18,7 +18,7 @@ namespace StackOverflow_Analytics.View {
     /// Interaction logic for QuestionViewPage.xaml
     /// </summary>
     public partial class QuestionViewPage : Page {
-        public QuestionViewPage() {
+        public QuestionViewPage(Question question) {
             InitializeComponent();
         }
     }
