@@ -26,8 +26,7 @@ namespace StackOverflow_Analytics {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            QuestionsViewModel qvm = new QuestionsViewModel();
-            questionsList.ItemsSource = qvm.Questions;
+            DataContext = new QuestionsViewModel();
         }
     }
 }

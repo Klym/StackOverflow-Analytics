@@ -45,7 +45,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы:" />
-            <ListBox x:Name="questionsList" Grid.Row="1" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+            <ListBox x:Name="questionsList" Grid.Row="1" ItemsSource="{Binding Path=Questions}"  HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
