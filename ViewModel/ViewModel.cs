@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 namespace StackOverflow_Analytics {
     public abstract class ViewModel {
 
-        protected string connectinString = Properties.Settings.Default.stackoverflowConnectionString;
+        protected string connectionString = Properties.Settings.Default.stackoverflowConnectionString;
 
         protected abstract void createObject(SqlDataReader reader);
 
@@ -16,7 +16,7 @@ namespace StackOverflow_Analytics {
             SqlConnection connection = null;
             SqlDataReader reader = null;
             try {
-                connection = new SqlConnection(connectinString);
+                connection = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand(query, connection);
                 connection.Open();
                 reader = cmd.ExecuteReader();

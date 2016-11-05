@@ -21,9 +21,8 @@ namespace StackOverflow_Analytics {
         protected override void createObject(SqlDataReader reader) {
             while (reader.Read()) {
                 Question question = new Question(reader["id"].ToString(), reader["u_name"].ToString(), reader["title"].ToString(), reader["body"].ToString(), reader["is_answered"].ToString(), reader["answer_count"].ToString(), reader["view_count"].ToString(), reader["score"].ToString(), reader["up_vote_count"].ToString(), reader["creation_date"].ToString());
-                TagsViewModel tagsVM = new TagsViewModel();
-                tagsVM.getTagsModelByQId(question.Id);
-                question.TagsVM = tagsVM;
+                question.TagsVM = new TagsViewModel();
+                question.TagsVM.getTagsModelByQId(question.Id);
                 this.Questions.Add(question);
             }
         }
