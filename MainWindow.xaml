@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StackOverflow_Analytics"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="StackOverflow Analytics" Height="650" Width="1100" ResizeMode="CanMinimize">
+        Title="StackOverflow Analytics" Height="650" Width="1100">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.40*" />

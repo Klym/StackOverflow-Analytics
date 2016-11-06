@@ -31,15 +31,15 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы:" />
-        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=Questions}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=Questions}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid MinHeight="60">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="195" />
-                            <ColumnDefinition Width="548" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Center">
+                        <UniformGrid Grid.Column="0" Columns="3" VerticalAlignment="Top">
                             <TextBlock TextAlignment="Center"><Run FontSize="17" Text="{Binding Path=Score}" /><LineBreak /><Run>голосов</Run></TextBlock>
                             <TextBlock TextAlignment="Center">
                                 <TextBlock.Style>
@@ -58,10 +58,14 @@
                             </TextBlock>
                             <TextBlock TextAlignment="Center"><Run FontSize="17" Text="{Binding Path=ViewCount}" /><LineBreak /><Run>показов</Run></TextBlock>
                         </UniformGrid>
-                        <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 0, 0">
-                            <TextBlock Foreground="BlueViolet" TextWrapping="WrapWithOverflow" FontSize="15" Text="{Binding Path=Title}"></TextBlock>
-                            <UniformGrid Columns="2">
-                                <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                        <StackPanel Grid.Column="1" Margin="20, 0, 0, 0" VerticalAlignment="Top">
+                            <TextBlock Foreground="BlueViolet" TextWrapping="Wrap" FontSize="15" Text="{Binding Path=Title}"></TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ListBox x:Name="tagsList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>
@@ -75,9 +79,9 @@
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
-                                <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
-                            </UniformGrid>
-                        </UniformGrid>
+                                <TextBlock Foreground="Gray" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
+                            </Grid>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
