@@ -18,8 +18,13 @@ namespace StackOverflow_Analytics.View {
     /// Interaction logic for QuestionViewPage.xaml
     /// </summary>
     public partial class QuestionViewPage : Page {
+
+        public Question Question { get; set; }
+
         public QuestionViewPage(Question question) {
             InitializeComponent();
+            this.Question = question;
+            DataContext = this.Question;
         }
     }
 }
