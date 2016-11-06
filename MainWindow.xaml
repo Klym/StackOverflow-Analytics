@@ -9,7 +9,7 @@
         Title="StackOverflow Analytics" Height="650" Width="1100">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.40*" />
+            <ColumnDefinition Width="0.30*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
