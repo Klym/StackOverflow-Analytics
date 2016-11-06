@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StackOverflow_Analytics.View"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      mc:Ignorable="d"
       Title="QuestionViewPage">
     <Page.Resources>
         <Style x:Key="ListTagsStyle" TargetType="ListBoxItem">
@@ -26,50 +25,108 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" TextAlignment="Center"  Margin="10, 10, 0, 10" FontSize="17" Text="{Binding Path=Title}" />
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14" MinHeight="320">
-                <Run Text="{Binding Path=Score}" />
-                <LineBreak />
-                <Run Text="Голосов" />
-                <LineBreak /><LineBreak /><LineBreak />
-                <Run Text="{Binding Path=ViewCount}" />
-                <LineBreak />
-                <Run Text="Просмотров" />
-                <LineBreak /><LineBreak /><LineBreak />
-                <Run Text="{Binding Path=AnswerCount}" />
-                <LineBreak />
-                <Run Text="Ответов" />
-            </TextBlock>
-            <UniformGrid Grid.Column="1" Rows="2" Margin="20, 0, 5, 5">
-                <TextBlock TextWrapping="WrapWithOverflow" FontSize="13" Text="{Binding Path=Body}" />
-                <UniformGrid Columns="2">
-                    <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <ListBoxItem Padding="0" Cursor="Hand" Margin="0, 0, 5, 0">
-                                    <Button Background="AliceBlue" Height="26" Content="{Binding Path=Name}" Padding="6, 0, 6, 0" />
-                                </ListBoxItem>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
-                </UniformGrid>
-            </UniformGrid>
-        </Grid>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center" Margin="10, 10, 0, 10" FontSize="17" Text="{Binding Path=Title}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="660" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14" >
+                    <Run Text="{Binding Path=Score}" />
+                    <LineBreak />
+                    <Run Text="Голосов" />
+                    <LineBreak /><LineBreak /><LineBreak />
+                    <Run Text="{Binding Path=ViewCount}" />
+                    <LineBreak />
+                    <Run Text="Просмотров" />
+                    <LineBreak /><LineBreak /><LineBreak />
+                    <Run Text="{Binding Path=AnswerCount}" />
+                    <LineBreak />
+                    <Run Text="Ответов" />
+                </TextBlock>
+                <StackPanel Grid.Column="1" Margin="20, 0, 5, 5">
+                    <TextBlock TextWrapping="WrapWithOverflow" FontSize="13" Text="{Binding Path=Body}" />
+                    <UniformGrid Columns="2">
+                        <ListBox x:Name="tagsList" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ListBoxItem Padding="0" Cursor="Hand" Margin="0, 0, 5, 0">
+                                        <Button Background="AliceBlue" Height="26" Content="{Binding Path=Name}" Padding="6, 0, 6, 0" />
+                                    </ListBoxItem>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Создан: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}"/>&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
+                    </UniformGrid>
+                </StackPanel>
+            </Grid>
+            <TextBlock Margin="10, 5, 0, 0" FontSize="16" TextDecorations="Underline">Лучшие ответы: </TextBlock>
+            <ListBox BorderBrush="Transparent" ItemContainerStyle="{DynamicResource ListTagsStyle}" Margin="0, 20, 0, 0">
+                <ListBoxItem Margin="0, 10, 0, 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="640" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14">
+                            <Run Text="12" />
+                            <LineBreak />
+                            <Run Text="Голосов" />
+                        </TextBlock>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                                there is no event in safari that allows you to detect if the tab is being paused , however you can detect if the tab is being reopened a after a while by putting in a regularly repeating function , like this is a simple example -you could use window.onunload to save the datachannel's data to a cookie and if it reopens after the time specified in this function (10 seconds) then you could reload the data from the cookie hope it helped , mukund2003
+                            </TextBlock>
+                            <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="Klym" />&#160;<Run Text="21.02.2001" /></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </ListBoxItem>
+                <ListBoxItem Margin="0, 10, 0, 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="640" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14">
+                            <Run Text="12" />
+                            <LineBreak />
+                            <Run Text="Голосов" />
+                        </TextBlock>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                                there is no event in safari that allows you to detect if the tab is being paused , however you can detect if the tab is being reopened a after a while by putting in a regularly repeating function , like this is a simple example -you could use window.onunload to save the datachannel's data to a cookie and if it reopens after the time specified in this function (10 seconds) then you could reload the data from the cookie hope it helped , mukund2003
+                            </TextBlock>
+                            <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="Klym" />&#160;<Run Text="21.02.2001" /></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </ListBoxItem>
+                <ListBoxItem Margin="0, 10, 0, 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="640" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14">
+                            <Run Text="12" />
+                            <LineBreak />
+                            <Run Text="Голосов" />
+                        </TextBlock>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                                there is no event in safari that allows you to detect if the tab is being paused , however you can detect if the tab is being reopened a after a while by putting in a regularly repeating function , like this is a simple example -you could use window.onunload to save the datachannel's data to a cookie and if it reopens after the time specified in this function (10 seconds) then you could reload the data from the cookie hope it helped , mukund2003
+                            </TextBlock>
+                            <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="Klym" />&#160;<Run Text="21.02.2001" /></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
