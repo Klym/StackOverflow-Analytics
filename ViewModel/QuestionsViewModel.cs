@@ -23,6 +23,8 @@ namespace StackOverflow_Analytics {
                 Question question = new Question(reader["id"].ToString(), reader["u_name"].ToString(), reader["title"].ToString(), reader["body"].ToString(), reader["is_answered"].ToString(), reader["answer_count"].ToString(), reader["view_count"].ToString(), reader["score"].ToString(), reader["up_vote_count"].ToString(), reader["creation_date"].ToString());
                 question.TagsVM = new TagsViewModel();
                 question.TagsVM.getTagsModelByQId(question.Id);
+                question.AnswersVM = new AnswersViewModel();
+                question.AnswersVM.getAnswersByQId(question.Id);
                 this.Questions.Add(question);
             }
         }

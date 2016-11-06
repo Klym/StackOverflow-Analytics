@@ -19,6 +19,7 @@ namespace StackOverflow_Analytics {
         public DateTime CreationDate { get; set; }
         public string DateString { get; set; }
         public TagsViewModel TagsVM { get; set; }
+        public AnswersViewModel AnswersVM { get; set; }
 
         public Question(string id, string user, string title, string body, string isAnswered, string aCnt, string vCnt, string score, string upCnt, string date) {
             this.Id = int.Parse(id);

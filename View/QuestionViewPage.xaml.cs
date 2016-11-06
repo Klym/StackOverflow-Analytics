@@ -24,7 +24,7 @@ namespace StackOverflow_Analytics.View {
         public QuestionViewPage(Question question) {
             InitializeComponent();
             this.Question = question;
-            DataContext = this.Question;
+            DataContext = this.Question;            
         }
     }
 }
