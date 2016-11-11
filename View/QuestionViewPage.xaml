@@ -106,7 +106,7 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-            <TextBlock Margin="10, 5, 0, 0" FontSize="16" TextDecorations="Underline">Лучшие ответы: </TextBlock>
+            <TextBlock Margin="10, 5, 0, 0" FontSize="16" TextDecorations="Underline">Лучшие ответы:</TextBlock>
             <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" ItemsSource="{Binding Path=AnswersVM.Answers}" Margin="0, 15, 0, 0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

@@ -33,7 +33,9 @@ namespace StackOverflow_Analytics {
         private void questionsList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             Question selectedQuestion = (Question)questionsList.SelectedItem;
             this.mainWindow.MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            this.mainWindow.MainFrame.Navigate(new QuestionViewPage(selectedQuestion));
+            if (selectedQuestion != null) {
+                this.mainWindow.MainFrame.Navigate(new QuestionViewPage(selectedQuestion));
+            }
         }
         
     }
