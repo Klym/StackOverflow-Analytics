@@ -15,6 +15,7 @@ namespace StackOverflow_Analytics {
         public int UpVoteCount { get; set; }
         public DateTime CreationDate { get; set; }
         public string DateString { get; set; }
+        public CommentsViewModel CommentsVM { get; set; }
 
         public Answer(string id, string userName, string questionId, string isAccepted, string body, string score, string upVoteCount, string creationDate) {
             this.Id = int.Parse(id);

@@ -26,6 +26,10 @@ namespace StackOverflow_Analytics.View {
             this.Question = question;
             this.Question.AnswersVM = new AnswersViewModel();
             this.Question.AnswersVM.getAnswersByQId(this.Question.Id);
+            for (int i = 0; i < this.Question.AnswersVM.Answers.Count; i++) {
+                this.Question.AnswersVM.Answers[i].CommentsVM = new CommentsViewModel();
+                this.Question.AnswersVM.Answers[i].CommentsVM.getByAnswerId(this.Question.AnswersVM.Answers[i].Id);
+            }
             DataContext = this.Question;
         }
     }

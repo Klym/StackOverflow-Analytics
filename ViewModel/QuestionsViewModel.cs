@@ -13,7 +13,8 @@ namespace StackOverflow_Analytics {
         public ObservableCollection<Question> Questions { get; }
 
         public QuestionsViewModel() {
-            string query = "SELECT TOP 100 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id ORDER BY score DESC";
+            // Достаем вопросы для которых есть ответы и комментарии
+            string query = "select TOP 100 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id WHERE (select COUNT(id) from comments WHERE answer_id in (select id from answers where question_id = questions.id)) > 0 ORDER BY score DESC";
             this.Questions = new ObservableCollection<Question>();
             this.selectData(query);
         }

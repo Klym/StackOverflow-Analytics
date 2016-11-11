@@ -22,6 +22,7 @@ namespace StackOverflow_Analytics {
             this.AnswerId = (String.IsNullOrEmpty(answerId)) ? 0 : int.Parse(answerId);
             this.QuestionId = (String.IsNullOrEmpty(questionId)) ? 0 : int.Parse(questionId);
             this.Body = body;
+            this.Score = int.Parse(score);
             this.IsEdited = bool.Parse(isEdited);
             string[] parseDate = creationDate.Split('.');
             this.CreationDate = new DateTime(int.Parse(parseDate[2].Substring(0, parseDate[2].IndexOf(' '))), int.Parse(parseDate[1]), int.Parse(parseDate[0]));
