@@ -107,7 +107,7 @@
                 </StackPanel>
             </Grid>
             <TextBlock Margin="10, 5, 0, 0" FontSize="16" TextDecorations="Underline">Лучшие ответы:</TextBlock>
-            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" ItemsSource="{Binding Path=AnswersVM.Answers}" Margin="0, 15, 0, 0">
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" ItemsSource="{Binding Path=AnswersVM.Answers}" Margin="0, 15, 0, 0" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <ListBoxItem Margin="0, 10, 0, 0">
@@ -127,10 +127,10 @@
                                         <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}" />&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
                                     </StackPanel>
                                 </Grid>
-                                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" ItemsSource="{Binding Path=CommentsVM.Comments}" Margin="95, 20, 0, 0">
+                                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" ItemsSource="{Binding Path=CommentsVM.Comments}" Margin="95, 20, 0, 0" HorizontalContentAlignment="Stretch">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <ListBoxItem BorderThickness="0 1 0 0" BorderBrush="LightGray" Padding="0 4 0 15" HorizontalAlignment="Stretch">
+                                            <ListBoxItem BorderThickness="0 1 0 0" BorderBrush="LightGray" Padding="0 4 0 15">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="50"></ColumnDefinition>
