@@ -134,7 +134,7 @@
                                                 <ColumnDefinition Width="50"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Left" FontSize="13" Text="24" />
+                                            <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Left" Foreground="Gray" FontSize="13" Text="24" />
                                             <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="12" TextWrapping="Wrap" Text="В каком случае относительно окна и относительно документа будут разными?">
                                                 <Run Text=" – " />
                                                 <Run Text="Qwertiy" Foreground="Blue" Cursor="Hand" /><Run Text=" " />
