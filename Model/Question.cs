@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace StackOverflow_Analytics {
-    public class Question {
+    public class Question : IModel {
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Title { get; set; }
@@ -21,18 +22,17 @@ namespace StackOverflow_Analytics {
         public TagsViewModel TagsVM { get; set; }
         public AnswersViewModel AnswersVM { get; set; }
 
-        public Question(string id, string user, string title, string body, string isAnswered, string aCnt, string vCnt, string score, string upCnt, string date) {
-            this.Id = int.Parse(id);
-            this.UserName = user;
-            this.Title = title;
-            this.Body = body;
-            this.IsAnswered = bool.Parse(isAnswered);
-            this.AnswerCount = int.Parse(aCnt);
-            this.ViewCount = int.Parse(vCnt);
-            this.Score = int.Parse(score);
-            this.UpVoteCount = int.Parse(upCnt);
-            string[] parseDate = date.Split('.');
-            this.CreationDate = new DateTime(int.Parse(parseDate[2].Substring(0, parseDate[2].IndexOf(' '))), int.Parse(parseDate[1]), int.Parse(parseDate[0]));
+        public Question(SqlDataReader reader) {
+            this.Id = int.Parse(reader["id"].ToString());
+            this.UserName = reader["u_name"].ToString();
+            this.Title = reader["title"].ToString();
+            this.Body = reader["body"].ToString();
+            this.IsAnswered = bool.Parse(reader["is_answered"].ToString());
+            this.AnswerCount = int.Parse(reader["answer_count"].ToString());
+            this.ViewCount = int.Parse(reader["view_count"].ToString());
+            this.Score = int.Parse(reader["score"].ToString());
+            this.UpVoteCount = int.Parse(reader["up_vote_count"].ToString());
+            this.CreationDate = ViewModel.strToDateTime(reader["creation_date"].ToString());
             this.DateString = this.CreationDate.ToString("dd.MM.yyyy");
         }
     }

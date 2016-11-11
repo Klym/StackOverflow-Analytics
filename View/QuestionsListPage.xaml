@@ -31,7 +31,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы:" />
-        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=Questions}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=Data}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid MinHeight="60">
@@ -65,7 +65,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <ListBox x:Name="tagsList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=TagsVM.Tags}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+                                <ListBox x:Name="tagsList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=TagsVM.Data}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal"/>

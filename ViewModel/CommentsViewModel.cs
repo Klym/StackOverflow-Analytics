@@ -9,16 +9,8 @@ using System.Data.SqlClient;
 namespace StackOverflow_Analytics {
     public class CommentsViewModel : ViewModel {
 
-        public ObservableCollection<Comment> Comments { get; }
-
-        public CommentsViewModel() {
-            this.Comments = new ObservableCollection<Comment>();
-        }
-
-        protected override void createObject(SqlDataReader reader) {
-            while (reader.Read()) {
-                this.Comments.Add(new Comment(reader["id"].ToString(), reader["user_name"].ToString(), reader["answer_id"].ToString(), reader["question_id"].ToString(), reader["body"].ToString(), reader["score"].ToString(), reader["edited"].ToString(), reader["creation_date"].ToString()));
-            }
+        protected override IModel createObject(SqlDataReader reader) {
+            return new Comment(reader);
         }
 
         public void getByAnswerId(int answer_id) {

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace StackOverflow_Analytics {
-    public class Answer {
+    public class Answer : IModel {
         public int Id { get; set; }
         public string UserName { get; set; }
         public int QuestionId { get; set; }
@@ -17,16 +18,15 @@ namespace StackOverflow_Analytics {
         public string DateString { get; set; }
         public CommentsViewModel CommentsVM { get; set; }
 
-        public Answer(string id, string userName, string questionId, string isAccepted, string body, string score, string upVoteCount, string creationDate) {
-            this.Id = int.Parse(id);
-            this.UserName = userName;
-            this.QuestionId = int.Parse(questionId);
-            this.IsAccepted = bool.Parse(isAccepted);
-            this.Body = body;
-            this.Score = int.Parse(score);
-            this.UpVoteCount = int.Parse(upVoteCount);
-            string[] parseDate = creationDate.Split('.');
-            this.CreationDate = new DateTime(int.Parse(parseDate[2].Substring(0, parseDate[2].IndexOf(' '))), int.Parse(parseDate[1]), int.Parse(parseDate[0]));
+        public Answer(SqlDataReader reader) {
+            this.Id = int.Parse(reader["id"].ToString());
+            this.UserName = reader["user_name"].ToString();
+            this.QuestionId = int.Parse(reader["question_id"].ToString());
+            this.IsAccepted = bool.Parse(reader["is_accepted"].ToString());
+            this.Body = reader["body"].ToString();
+            this.Score = int.Parse(reader["score"].ToString());
+            this.UpVoteCount = int.Parse(reader["up_vote_count"].ToString());
+            this.CreationDate = ViewModel.strToDateTime(reader["creation_date"].ToString());
             this.DateString = this.CreationDate.ToString("dd.MM.yyyy");
         }
     }
