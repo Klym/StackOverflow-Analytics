@@ -24,7 +24,9 @@ namespace StackOverflow_Analytics.View {
         public QuestionViewPage(Question question) {
             InitializeComponent();
             this.Question = question;
-            DataContext = this.Question;            
+            this.Question.AnswersVM = new AnswersViewModel();
+            this.Question.AnswersVM.getAnswersByQId(this.Question.Id);
+            DataContext = this.Question;
         }
     }
 }
