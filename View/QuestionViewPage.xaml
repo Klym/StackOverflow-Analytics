@@ -37,8 +37,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                <Setter Property="Background" TargetName="Bd" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Black"/>
                             </Trigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -111,21 +111,39 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <ListBoxItem Margin="0, 10, 0, 0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14">
-                            <Run Text="{Binding Path=Score}" />
-                            <LineBreak />
-                            <Run Text="Голосов" />
-                                </TextBlock>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=Body}" />
-                                    <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}" />&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
-                                </StackPanel>
-                            </Grid>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Center" FontSize="14">
+                                        <Run Text="{Binding Path=Score}" />
+                                        <LineBreak />
+                                        <Run Text="Голосов" />
+                                    </TextBlock>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Path=Body}" />
+                                        <TextBlock Foreground="Gray" Margin="0, 10, 0, 0" HorizontalAlignment="Right" Text="Ответил: "><Run Cursor="Hand" TextDecorations="Underline" Foreground="Blue" Text="{Binding Path=UserName}" />&#160;<Run Text="{Binding Path=DateString}" /></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Transparent" Margin="95, 20, 0, 0">
+                                    <ListBoxItem BorderThickness="0 1 0 0" BorderBrush="LightGray" Padding="0 4 0 15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" VerticalAlignment="Top" TextAlignment="Left" FontSize="13" Text="24" />
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Top" FontSize="12" TextWrapping="Wrap" Text="В каком случае относительно окна и относительно документа будут разными?">
+                                                <Run Text=" – " />
+                                                <Run Text="Qwertiy" Foreground="Blue" Cursor="Hand" /><Run Text=" " />
+                                                <Run Text="31 авг в 20:19" Foreground="Gray" />
+                                            </TextBlock>
+                                        </Grid>
+                                    </ListBoxItem>
+                                </ListBox>
+                            </StackPanel>
                         </ListBoxItem>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
