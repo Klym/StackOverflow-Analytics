@@ -13,12 +13,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Expander Header="Вопросы">
-            </Expander>
-            <Expander Header="Пользователи">
-            </Expander>
-            <Expander Header="Теги">
-            </Expander>
+            <Expander Header="Вопросы" MouseDoubleClick="Expander_MouseDoubleClick" />
+            <Expander Header="Пользователи" MouseDoubleClick="Expander_MouseDoubleClick_1" />
+            <Expander Header="Теги" />
         </StackPanel>
         <Frame Grid.Column="1" x:Name="MainFrame" Source="View/QuestionsListPage.xaml" />
     </Grid>

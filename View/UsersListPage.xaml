@@ -1,0 +1,33 @@
+﻿<Page x:Class="StackOverflow_Analytics.UsersListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StackOverflow_Analytics.View"
+      mc:Ignorable="d" 
+      Title="UsersListPage">
+    <Grid>
+        <ListBox HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+            <ListBoxItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" MinWidth="140" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Maksim Klimenko" Foreground="Blue" FontSize="16" />
+                        <TextBlock Text="19"><Run Text=" лет"/></TextBlock>
+                        <TextBlock TextWrapping="Wrap" Text="Donetsk People's Republic" />
+                    </StackPanel>
+                    <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="1" Foreground="Red" Text="125463"><LineBreak /><Run Text="Репутация" /></TextBlock>
+                    <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="2" Text="48472"><LineBreak /><Run Text="Просмотров" /></TextBlock>
+                    <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="3" Foreground="Green" Text="48472"><LineBreak /><Run Text="Вопросов" /></TextBlock>
+                    <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="4" Foreground="DarkGreen" Text="48472"><LineBreak /><Run Text="Ответов" /></TextBlock>
+                </Grid>
+            </ListBoxItem>
+        </ListBox>
+    </Grid>
+</Page>

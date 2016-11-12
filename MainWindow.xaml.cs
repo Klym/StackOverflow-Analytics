@@ -26,5 +26,15 @@ namespace StackOverflow_Analytics {
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             DataContext = new QuestionsViewModel();
         }
+
+        private void Expander_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.Navigate(new QuestionsListPage());
+        }
+
+        private void Expander_MouseDoubleClick_1(object sender, MouseButtonEventArgs e) {
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.Navigate(new UsersListPage());
+        }
     }
 }
