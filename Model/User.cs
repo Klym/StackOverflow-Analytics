@@ -23,7 +23,7 @@ namespace StackOverflow_Analytics {
             this.Id = int.Parse(reader["id"].ToString());
             this.Type = reader["user_type"].ToString();
             this.Name = reader["display_name"].ToString();
-            this.Age = int.Parse(reader["age"].ToString());
+            this.Age = (!String.IsNullOrEmpty(reader["age"].ToString())) ? int.Parse(reader["age"].ToString()) : 0;
             this.Reputation = int.Parse(reader["reputation"].ToString());
             this.IsEmploye = bool.Parse(reader["is_employe"].ToString());
             this.Location = reader["location"].ToString();

@@ -20,6 +20,11 @@ namespace StackOverflow_Analytics {
     public partial class UsersListPage : Page {
         public UsersListPage() {
             InitializeComponent();
+            try {
+                DataContext = new UsersViewModel();
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

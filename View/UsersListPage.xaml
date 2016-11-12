@@ -7,27 +7,29 @@
       mc:Ignorable="d" 
       Title="UsersListPage">
     <Grid>
-        <ListBox HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
-            <ListBoxItem>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" MinWidth="140" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Maksim Klimenko" Foreground="Blue" FontSize="16" />
-                        <TextBlock Text="19"><Run Text=" лет"/></TextBlock>
-                        <TextBlock TextWrapping="Wrap" Text="Donetsk People's Republic" />
-                    </StackPanel>
-                    <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="1" Foreground="Red" Text="125463"><LineBreak /><Run Text="Репутация" /></TextBlock>
-                    <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="2" Text="48472"><LineBreak /><Run Text="Просмотров" /></TextBlock>
-                    <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="3" Foreground="Green" Text="48472"><LineBreak /><Run Text="Вопросов" /></TextBlock>
-                    <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="4" Foreground="DarkGreen" Text="48472"><LineBreak /><Run Text="Ответов" /></TextBlock>
-                </Grid>
-            </ListBoxItem>
+        <ListBox HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Data}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0, 5, 0, 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" MinWidth="140" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="{Binding Path=Name}" Foreground="Blue" FontSize="16" />
+                            <TextBlock Text="{Binding Path=Age}"><Run Text=" лет"/></TextBlock>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Location}" />
+                        </StackPanel>
+                        <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="1"><Run Foreground="Red" Text="{Binding Path=Reputation}" /><LineBreak /><Run Text="Репутация" /></TextBlock>
+                        <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="2" Text="{Binding Path=ViewCount}"><LineBreak /><Run Text="Просмотров" /></TextBlock>
+                        <TextBlock FontSize="17"  TextAlignment="Center" Grid.Column="3" Foreground="Green" Text="{Binding Path=QuestionCount}"><LineBreak /><Run Text="Вопросов" /></TextBlock>
+                        <TextBlock FontSize="17" TextAlignment="Center" Grid.Column="4" Foreground="DarkGreen" Text="{Binding Path=AnswerCount}"><LineBreak /><Run Text="Ответов" /></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Page>
