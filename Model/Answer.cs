@@ -26,7 +26,7 @@ namespace StackOverflow_Analytics {
             this.Body = reader["body"].ToString();
             this.Score = int.Parse(reader["score"].ToString());
             this.UpVoteCount = int.Parse(reader["up_vote_count"].ToString());
-            this.CreationDate = ViewModel.strToDateTime(reader["creation_date"].ToString());
+            this.CreationDate = ViewModel<IModel>.strToDateTime(reader["creation_date"].ToString());
             this.DateString = this.CreationDate.ToString("dd.MM.yyyy");
         }
     }

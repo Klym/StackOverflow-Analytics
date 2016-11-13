@@ -30,7 +30,7 @@ namespace StackOverflow_Analytics {
             this.ViewCount = int.Parse(reader["view_count"].ToString());
             this.QuestionCount = int.Parse(reader["question_count"].ToString());
             this.AnswerCount = int.Parse(reader["answer_count"].ToString());
-            this.CreationDate = ViewModel.strToDateTime(reader["creation_date"].ToString());
+            this.CreationDate = ViewModel<IModel>.strToDateTime(reader["creation_date"].ToString());
         }
     }
 }

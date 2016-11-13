@@ -6,15 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace StackOverflow_Analytics {
-    public class UsersViewModel : ViewModel {
+    public class UsersViewModel : ViewModel<User> {
 
         public UsersViewModel() {
             string query = "SELECT TOP 300 * FROM users ORDER BY reputation DESC";
             this.selectData(query);
-        }
-
-        protected override IModel createObject(SqlDataReader reader) {
-            return new User(reader);
         }
     }
 }

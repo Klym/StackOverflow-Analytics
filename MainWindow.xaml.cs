@@ -24,7 +24,13 @@ namespace StackOverflow_Analytics {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            DataContext = new QuestionsViewModel();
+            QuestionsViewModel questionVM = new QuestionsViewModel();
+            for (int i = 0; i < questionVM.Data.Count; i++) {
+                Question question = questionVM.Data[i] as Question;
+                question.TagsVM = new TagsViewModel();
+                question.TagsVM.getTagsModelByQId(question.Id);
+            }
+            DataContext = questionVM;
         }
 
         private void Expander_MouseDoubleClick(object sender, MouseButtonEventArgs e) {

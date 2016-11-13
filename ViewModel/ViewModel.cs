@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace StackOverflow_Analytics {
-    public abstract class ViewModel {
+    public abstract class ViewModel<T> where T : IModel {
 
         public ObservableCollection<IModel> Data { get; set; }
         protected string connectionString = Properties.Settings.Default.stackoverflowConnectionString;
-        protected abstract IModel createObject(SqlDataReader reader);
 
         public ViewModel() {
             this.Data = new ObservableCollection<IModel>();
@@ -26,7 +25,7 @@ namespace StackOverflow_Analytics {
                 connection.Open();
                 reader = cmd.ExecuteReader();
                 while (reader.Read()) {
-                    IModel item = this.createObject(reader);
+                    IModel item = (T)Activator.CreateInstance(typeof(T), reader);
                     this.Data.Add(item);
                 }
             } catch (Exception ex) {

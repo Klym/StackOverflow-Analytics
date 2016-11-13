@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace StackOverflow_Analytics {
-    public class AnswersViewModel : ViewModel {
-
-        protected override IModel createObject(SqlDataReader reader) {
-            return new Answer(reader);
-        }
+    public class AnswersViewModel : ViewModel<Answer> {
 
         public void getAnswersByQId(int question_id) {
             string query = "SELECT answers.*, users.display_name AS user_name FROM answers JOIN users ON users.id = answers.user_id WHERE question_id=" + question_id;
