@@ -162,10 +162,29 @@ def get_comments(stackapi, db, log):
         log.write(u"%s: Добавлены комментарии ответа №%s (%s), запросов: %s" % (i + 1, a_ids[i], tmpCnt, page))
     return comments_count
 
+def update_tags(stackapi, db, log):
+    wiki_count = 0
+    tag_names = db.select_all(DataBase.tags_get, lambda x: x[0])
+    params = {}
+    for i in range(0, len(tag_names)):
+        try:
+            tags, has_more, backoff = stackapi.get('tags/%s/wikis' % tag_names[i], params)
+            if backoff > 0:
+                log.write(u"Ожидание: %s сек" % backoff)
+                time.sleep(backoff)
+                stackapi.connect()
+            tmpCnt = db.insert(tags, DataBase.tags_update)
+            wiki_count += tmpCnt
+            log.write(u"%s: Добавлено описание тэга %s" % (i + 1, tag_names[i]))
+        except Exception as e:
+            log.write(e.message)
+    return wiki_count
+
 def main():
     parser = argparse.ArgumentParser(description=u"Получение данных ресурса stackoverflow.com")
     parser.add_argument('-u', '--users', type=int, nargs=2, metavar=('from', 'count'), help=u'Получить пользователей ресурса')
     parser.add_argument('-t', '--tags', action='store_true', help=u'Получить все тэги ресурса')
+    parser.add_argument('-w', '--wiki', action='store_true', help=u'Добавить описание к тэгам')
     parser.add_argument('-q', '--questions', action='store_true', help=u'Получить вопросы пользователей')
     parser.add_argument('-a', '--answers', action='store_true', help=u'Получить ответы ко всем вопросам')
     parser.add_argument('-c', '--comments', action='store_true', help=u'Получить комментарии ко всем ответам')
@@ -179,14 +198,17 @@ def main():
     start_time = time.time()
     stackapi = StackAPI()
     db = DataBase()
-    rows_count, tags_count, users_count, questions_count, many_tags_count, answers_count, comments_count = 0, 0, 0, 0, 0, 0, 0
+    rows_count, tags_count, wiki_count, users_count, questions_count, many_tags_count, answers_count, comments_count = 0, 0, 0, 0, 0, 0, 0, 0
     
     log.write(u"Начало загрузки: %s" % datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
-    
+
     if args.tags:
         # Получаем тэги
         tags_count = get_tags(stackapi, db, log)
-        rows_count += tags_count        
+        rows_count += tags_count
+    if args.wiki:
+        # Получаем описание тэгов
+        wiki_count = update_tags(stackapi, db, log)
     if args.users is not None:
         # Получаем пользователей
         pages_count = args.users[0] if args.users[0] > 0 else 1
@@ -211,6 +233,7 @@ def main():
     
     log.write(u"\nПользователей добавлено: %s" % users_count)
     log.write(u"Тэгов добавлено: %s" % tags_count)
+    log.write(u"Описаний к тэгам добавлено: %s" % wiki_count)
     log.write(u"Вопросов добавлено: %s" % questions_count)
     log.write(u"Связано тэгов с вопросами: %s" % many_tags_count)
     log.write(u"Ответов добавлено: %s" % answers_count)

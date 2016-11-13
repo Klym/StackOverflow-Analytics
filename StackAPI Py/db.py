@@ -84,7 +84,15 @@ class DataBase(object):
     @staticmethod
     def q_tags(row):
         return ("insert into [dbo].[q_tags] ([question_id], [tag_id]) values (?,?)", (row["question_id"], row["tag_id"]))
-    
+
+    @staticmethod
+    def tags_get():
+        return "select [name] from [dbo].[tags] where [description] is null"
+
+    @staticmethod
+    def tags_update(row):
+        return ("update [dbo].[tags] set [description]=? where [name]=?", (row["excerpt"], row["tag_name"]))
+
     @staticmethod
     def questions(row):
         user_id = row["owner"]["user_id"]
