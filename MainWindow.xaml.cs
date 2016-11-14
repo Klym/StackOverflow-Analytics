@@ -42,5 +42,10 @@ namespace StackOverflow_Analytics {
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MainFrame.Navigate(new UsersListPage());
         }
+
+        private void Expander_MouseDoubleClick_2(object sender, MouseButtonEventArgs e) {
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            MainFrame.Navigate(new TagsListPage());
+        }
     }
 }
