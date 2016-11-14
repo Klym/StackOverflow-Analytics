@@ -5,46 +5,36 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StackOverflow_Analytics"
       mc:Ignorable="d" 
-      Title="TagsListPage">
-    <Page.Resources>
-        <Style x:Key="ListTagsStyle" TargetType="ListBoxItem">
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="{x:Null}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
+      Title="TagsListPage" Loaded="Page_Loaded">
     <Grid>
-        <ListBox x:Name="tagsList" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=TagsVM.Data}" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListTagsStyle}">
+        <ListBox x:Name="tagsList" MouseDoubleClick="ListBoxItem_MouseDoubleClick" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Path=Data}" Background="Transparent" BorderThickness="0">
+            <ListBox.ItemContainerStyle>
+                <Style>
+                    <Setter Property="ListBoxItem.Margin" Value="10, 10, 5, 10" />
+                    <Setter Property="ListBoxItem.Padding" Value="4" />
+                    <Setter Property="ListBoxItem.Cursor" Value="Hand" />
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <ListBoxItem Margin="10">
-                <StackPanel Width="265" Height="120">
-                    <Grid Margin="0, 0, 0, 5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Background="AliceBlue" Height="22" Cursor="Hand" Content="php" Padding="3, 0, 3, 0" />
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text=" × "><Run>15789</Run></TextBlock>
-                    </Grid>
-                    <TextBlock TextWrapping="Wrap">PHP — скриптовый язык программирования общего назначения, активно применяемый для разработки веб-приложений.</TextBlock>
-                </StackPanel>
-            </ListBoxItem>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="240" Height="120">
+                        <Grid Margin="0, 0, 0, 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Background="AliceBlue" Height="22" Content="{Binding Path=Name}" Padding="3, 0, 3, 0" />
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text=" × "><Run Text="{Binding Path=Count}" /></TextBlock>
+                        </Grid>
+                        <TextBlock TextWrapping="Wrap" Foreground="Gray" Text="{Binding Path=Description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Page>

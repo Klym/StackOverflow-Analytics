@@ -26,6 +26,12 @@ namespace StackOverflow_Analytics {
             InitializeComponent();
         }
 
+        public QuestionsListPage(QuestionsViewModel viewModel) {
+            InitializeComponent();
+
+            DataContext = viewModel;
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e) {
             this.mainWindow = (MainWindow)Window.GetWindow(this);
         }

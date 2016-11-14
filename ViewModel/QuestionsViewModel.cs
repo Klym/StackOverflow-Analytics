@@ -14,6 +14,21 @@ namespace StackOverflow_Analytics {
             // Достаем вопросы для которых есть ответы и комментарии
             string query = "select TOP 100 questions.*, users.display_name AS u_name FROM questions JOIN users ON user_id = users.id WHERE (select COUNT(id) from comments WHERE answer_id in (select id from answers where question_id = questions.id)) > 0 ORDER BY score DESC";
             this.selectData(query);
+            this.getTags();
         }
+
+        public QuestionsViewModel(string query) {
+            this.selectData(query);
+            this.getTags();
+        }
+
+        private void getTags() {
+            for (int i = 0; i < this.Data.Count; i++) {
+                Question question = this.Data[i] as Question;
+                question.TagsVM = new TagsViewModel();
+                question.TagsVM.getTagsModelByQId(question.Id);
+            }
+        }
+
     }
 }
