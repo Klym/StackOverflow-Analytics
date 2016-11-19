@@ -15,13 +15,13 @@
         <StackPanel Grid.Column="0">
             <Expander Margin="5" Header="Обзор" Padding="5" BorderBrush="LightBlue" BorderThickness="2">
                 <StackPanel>
-                    <Button Content="Вопросы" MouseDoubleClick="Expander_MouseDoubleClick" Height="30" FontSize="15" Cursor="Hand" />
-                    <Button Content="Пользователи" MouseDoubleClick="Expander_MouseDoubleClick_1" Height="30" FontSize="15" Cursor="Hand" />
-                    <Button Content="Метки" MouseDoubleClick="Expander_MouseDoubleClick_2" Height="30" FontSize="15" Cursor="Hand" />
+                    <Button Content="Вопросы" MouseDoubleClick="Expander_MouseDoubleClick" Height="30" FontSize="13" Cursor="Hand" />
+                    <Button Content="Пользователи" MouseDoubleClick="Expander_MouseDoubleClick_1" Height="30" FontSize="13" Cursor="Hand" />
+                    <Button Content="Метки" MouseDoubleClick="Expander_MouseDoubleClick_2" Height="30" FontSize="13" Cursor="Hand" />
                 </StackPanel>
             </Expander>
             <Expander Margin="5" Padding="5" Header="Статистика"  BorderBrush="LightBlue" BorderThickness="2">
-                <Button Content="Технологии" MouseDoubleClick="Button_MouseDoubleClick" Height="30" FontSize="15" Cursor="Hand" />
+                <Button Content="Технологии" MouseDoubleClick="Button_MouseDoubleClick" Height="30" FontSize="13" Cursor="Hand" />
             </Expander>
         </StackPanel>
         <Frame Grid.Column="1" x:Name="MainFrame" Source="View/QuestionsListPage.xaml" />

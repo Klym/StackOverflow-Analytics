@@ -42,7 +42,7 @@ namespace StackOverflow_Analytics {
         }
 
         private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-            MainFrame.Navigate(new TechStats());
+            MainFrame.Navigate(new TechStatsPage());
         }
     }
 }
