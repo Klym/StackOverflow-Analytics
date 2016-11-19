@@ -26,21 +26,23 @@ namespace StackOverflow_Analytics {
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             QuestionsViewModel questionVM = new QuestionsViewModel();
             DataContext = questionVM;
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
 
-        private void Expander_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+        private void Expander_MouseDoubleClick(object sender, MouseButtonEventArgs e) {            
             MainFrame.Navigate(new QuestionsListPage());
         }
 
         private void Expander_MouseDoubleClick_1(object sender, MouseButtonEventArgs e) {
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MainFrame.Navigate(new UsersListPage());
         }
 
         private void Expander_MouseDoubleClick_2(object sender, MouseButtonEventArgs e) {
-            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             MainFrame.Navigate(new TagsListPage());
+        }
+
+        private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            MainFrame.Navigate(new TechStats());
         }
     }
 }
