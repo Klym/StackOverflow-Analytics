@@ -20,10 +20,31 @@
                     <Button Content="Метки" MouseDoubleClick="Expander_MouseDoubleClick_2" Height="30" FontSize="13" Cursor="Hand" />
                 </StackPanel>
             </Expander>
-            <Expander Margin="5" Padding="5" Header="Статистика"  BorderBrush="LightBlue" BorderThickness="2">
+            <Expander Margin="5" Padding="5" Header="Статистика" BorderBrush="LightBlue" BorderThickness="2">
                 <StackPanel>
                     <Button Content="Технологии" MouseDoubleClick="Button_MouseDoubleClick" Height="30" FontSize="13" Cursor="Hand" />
                     <Button Content="Пользователи" MouseDoubleClick="Button_MouseDoubleClick_1" Height="30" FontSize="13" Cursor="Hand" />
+                </StackPanel>
+            </Expander>
+            <Expander Margin="5" Padding="5" Header="Настройки отображения" BorderBrush="LightBlue" BorderThickness="2">
+                <StackPanel>
+                    <ListBox Name="techsList" />
+                    <Grid Margin="0, 5, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".6*" />
+                            <ColumnDefinition Width=".2*" />
+                            <ColumnDefinition Width=".2*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0" Name="allTechsList" ItemsSource="{Binding Path=tagsVM.Data}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Grid.Column="1" Content="-" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click_1"></Button>
+                        <Button Grid.Column="2" Content="+" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click"></Button>
+                    </Grid>
                 </StackPanel>
             </Expander>
         </StackPanel>

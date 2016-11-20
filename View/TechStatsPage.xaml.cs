@@ -23,7 +23,6 @@ namespace StackOverflow_Analytics {
 
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
-        //public Func<double, string> YFormatter { get; set; }
 
         public TechStatsPage() {
             InitializeComponent();
@@ -32,7 +31,7 @@ namespace StackOverflow_Analytics {
 
             Labels = new[] { "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015" };
 
-            string[] technologies = new string[] { "C#", "C++", "Java", "Python", "PHP", "JavaScript" };
+            string[] technologies = new string[] { "c#", "c++", "java", "python", "php", "javascript" };
             for (int i = 0; i < technologies.Length; i++) {
                 TechStats stat = new TechStats(technologies[i]);
                 SeriesCollection.Add(new LineSeries {

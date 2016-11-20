@@ -21,6 +21,7 @@ namespace StackOverflow_Analytics {
     public partial class QuestionsListPage : Page {
 
         private MainWindow mainWindow;
+        public QuestionsViewModel questionVM { get; set; }
 
         public QuestionsListPage() {
             InitializeComponent();
@@ -28,8 +29,8 @@ namespace StackOverflow_Analytics {
 
         public QuestionsListPage(QuestionsViewModel viewModel) {
             InitializeComponent();
-
-            DataContext = viewModel;
+            questionVM = viewModel;
+            DataContext = this;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e) {

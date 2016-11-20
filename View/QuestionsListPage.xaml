@@ -31,7 +31,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock FontWeight="DemiBold" Grid.Row="0" FontSize="16" TextDecorations="Underline" Text="Лучшие вопросы:" />
-        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=Data}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
+        <ListBox x:Name="questionsList" MouseDoubleClick="questionsList_MouseDoubleClick" Grid.Row="1" ItemsSource="{Binding Path=questionVM.Data}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.CacheLength="30" VirtualizingPanel.CacheLengthUnit="Page">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid MinHeight="60">

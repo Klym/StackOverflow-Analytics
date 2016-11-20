@@ -10,7 +10,7 @@ namespace StackOverflow_Analytics {
     public class TagsViewModel : ViewModel<Tag> {
 
         public void getTopTags() {
-            string query = "SELECT TOP 300 * FROM tags WHERE description is not null";
+            string query = "SELECT TOP 500 * FROM tags WHERE description is not null";
             this.selectData(query);
         }
 
