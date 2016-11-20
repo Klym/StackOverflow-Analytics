@@ -21,7 +21,10 @@
                 </StackPanel>
             </Expander>
             <Expander Margin="5" Padding="5" Header="Статистика"  BorderBrush="LightBlue" BorderThickness="2">
-                <Button Content="Технологии" MouseDoubleClick="Button_MouseDoubleClick" Height="30" FontSize="13" Cursor="Hand" />
+                <StackPanel>
+                    <Button Content="Технологии" MouseDoubleClick="Button_MouseDoubleClick" Height="30" FontSize="13" Cursor="Hand" />
+                    <Button Content="Пользователи" MouseDoubleClick="Button_MouseDoubleClick_1" Height="30" FontSize="13" Cursor="Hand" />
+                </StackPanel>
             </Expander>
         </StackPanel>
         <Frame Grid.Column="1" x:Name="MainFrame" Source="View/QuestionsListPage.xaml" />

@@ -44,5 +44,9 @@ namespace StackOverflow_Analytics {
         private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             MainFrame.Navigate(new TechStatsPage());
         }
+
+        private void Button_MouseDoubleClick_1(object sender, MouseButtonEventArgs e) {
+            MainFrame.Navigate(new UserAgeStatsPage());
+        }
     }
 }
