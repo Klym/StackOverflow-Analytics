@@ -91,8 +91,7 @@ def get_questions(stackapi, db, log):
                             tag_id = tags[tag] = db.select(DataBase.get_tag_id, lambda x: x[0], tag)
                         q_tags.append({"question_id": q["question_id"], "tag_id": tag_id})
                     except Exception as e:
-                        if db.show_err:
-                            log.write(u"Ошибка связи тэга с вопросом. Question id: %s, tag name: %s. Msg: %s" % (q["question_id"], tag, e.message))
+						log.write(u"Ошибка связи тэга с вопросом. Question id: %s, tag name: %s. Msg: %s" % (q["question_id"], tag, e.message))
 
             tmpCnt = db.insert(q_tags, DataBase.q_tags)
             many_tags_count += tmpCnt            
