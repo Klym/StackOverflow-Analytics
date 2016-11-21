@@ -66,7 +66,7 @@ namespace StackOverflow_Analytics {
 
         private void Button_Click(object sender, RoutedEventArgs e) {
             Tag tag = (Tag)allTechsList.SelectedItem;
-            if (techsList.Items.IndexOf(tag.Name) != -1) return;
+            if (allTechsList.SelectedIndex == -1 || techsList.Items.IndexOf(tag.Name) != -1) return;
             techsList.Items.Add(tag.Name);
             TechStats stat = new TechStats(tag.Name);
             statsPage.SeriesCollection.Add(new LineSeries {
