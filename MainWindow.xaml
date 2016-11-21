@@ -42,8 +42,8 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <Button Grid.Column="1" Content="-" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click_1"></Button>
-                        <Button Grid.Column="2" Content="+" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click"></Button>
+                        <Button Name="delTechButton" Grid.Column="1" Content="-" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click_1" IsEnabled="False"></Button>
+                        <Button Name="addTechButton" Grid.Column="2" Content="+" Height="30" FontSize="13" Cursor="Hand" Click="Button_Click" IsEnabled="False"></Button>
                     </Grid>
                 </StackPanel>
             </Expander>

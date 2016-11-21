@@ -21,11 +21,8 @@ namespace StackOverflow_Analytics {
 
         private MainWindow mainWindow;
 
-        public TagsListPage() {
+        public TagsListPage(TagsViewModel tagsViewModel) {
             InitializeComponent();
-
-            TagsViewModel tagsViewModel = new TagsViewModel();
-            tagsViewModel.getTopTags();
             DataContext = tagsViewModel;
         }
 

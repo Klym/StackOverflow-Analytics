@@ -27,7 +27,6 @@ namespace StackOverflow_Analytics {
 
         public MainWindow() {
             InitializeComponent();
-            statsPage = new TechStatsPage();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -53,10 +52,15 @@ namespace StackOverflow_Analytics {
         }
 
         private void Expander_MouseDoubleClick_2(object sender, MouseButtonEventArgs e) {
-            MainFrame.Navigate(new TagsListPage());
+            MainFrame.Navigate(new TagsListPage(tagsVM));
         }
 
         private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            if (statsPage == null) {
+                addTechButton.IsEnabled = true;
+                delTechButton.IsEnabled = true;
+                statsPage = new TechStatsPage();
+            }
             MainFrame.Navigate(statsPage);
         }
 
