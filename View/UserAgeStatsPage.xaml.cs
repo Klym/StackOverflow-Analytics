@@ -35,7 +35,7 @@ namespace StackOverflow_Analytics {
 
             for (int i = 0; i < labels.Length; i++) {
                 string[] ages = labels[i].Split('-');
-                UserAgeStats stats = new UserAgeStats(int.Parse(ages[0]), int.Parse(ages[1]));
+                StatsModel stats = new UserAgeStats(int.Parse(ages[0]), int.Parse(ages[1]));
                 if (i + 1 == labels.Length) {
                     labels[i] = "60+";
                 }

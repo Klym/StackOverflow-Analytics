@@ -9,7 +9,6 @@ using LiveCharts;
 namespace StackOverflow_Analytics {
     public class TechStats : StatsModel {
         public string Name { get; set; }
-        public ChartValues<int> Values { get; set; }
 
         public TechStats(string name) {
             this.Name = name;

@@ -33,7 +33,7 @@ namespace StackOverflow_Analytics {
 
             string[] technologies = new string[] { "c#", "c++", "java", "python", "php", "javascript" };
             for (int i = 0; i < technologies.Length; i++) {
-                TechStats stat = new TechStats(technologies[i]);
+                StatsModel stat = new TechStats(technologies[i]);
                 SeriesCollection.Add(new LineSeries {
                     Title = technologies[i],
                     Values = stat.Values,

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using LiveCharts;
 
 namespace StackOverflow_Analytics {
     public abstract class StatsModel {
+
+        public ChartValues<int> Values { get; set; }
 
         protected abstract void parseReader(SqlDataReader reader);
 
