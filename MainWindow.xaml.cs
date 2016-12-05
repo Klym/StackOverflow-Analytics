@@ -21,6 +21,7 @@ namespace StackOverflow_Analytics {
     /// </summary>
     public partial class MainWindow : Window {
 
+        public TagsListPage tagsPage { get; set; }
         public TechStatsPage statsPage { get; set; }
         public QuestionsViewModel questionVM { get; set; }
         public TagsViewModel tagsVM { get; set; }
@@ -52,7 +53,10 @@ namespace StackOverflow_Analytics {
         }
 
         private void Expander_MouseDoubleClick_2(object sender, MouseButtonEventArgs e) {
-            MainFrame.Navigate(new TagsListPage(tagsVM));
+            if (tagsPage == null) {
+                tagsPage = new TagsListPage(tagsVM);
+            }
+            MainFrame.Navigate(tagsPage);
         }
 
         private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
